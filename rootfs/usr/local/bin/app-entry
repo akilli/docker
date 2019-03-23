@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+if [ -d /init ]; then
+    run-parts --exit-on-error /init
+fi
+
+if [ $# = 0 ]; then
+    exec s6-svscan /etc/s6
+else
+    exec "$@"
+fi
