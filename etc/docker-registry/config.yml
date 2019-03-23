@@ -1,0 +1,21 @@
+version: 0.1
+log:
+  fields:
+    service: registry
+storage:
+  cache:
+    blobdescriptor: inmemory
+  delete:
+    enabled: true
+  filesystem:
+    rootdirectory: /data
+http:
+  addr: :5000
+  headers:
+    X-Content-Type-Options: [nosniff]
+    Docker-Distribution-Api-Version: ["registry/2.0 always"]
+health:
+  storagedriver:
+    enabled: true
+    interval: 10s
+    threshold: 3
