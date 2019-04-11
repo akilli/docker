@@ -26,14 +26,10 @@ RUN mkdir \
     cp /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone && \
     rm -rf \
-        /etc/opt \
         /etc/TZ \
         /etc/group- \
         /etc/passwd- \
-        /etc/shadow- \
-        /var/empty \
-        /var/local \
-        /var/opt && \
+        /etc/shadow- && \
     apk del \
         .deps
 
