@@ -6,6 +6,7 @@ FROM alpine AS builder
 #
 # Build variables
 #
+ARG ID=1000
 ARG LANG=de_DE.UTF-8
 ARG TZ=Europe/Berlin
 
@@ -14,10 +15,11 @@ ARG TZ=Europe/Berlin
 #
 COPY rootfs/ /
 
-RUN mkdir \
+RUN addgroup -g $ID app && \
+    adduser -u $ID -G app -s /bin/ash -D app && \
+    mkdir \
         /app \
-        /data \
-        /home/app && \
+        /data && \
     apk add --no-cache \
         s6 \
         su-exec && \

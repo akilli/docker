@@ -7,6 +7,7 @@ FROM debian:buster-slim AS builder
 # Build variables
 #
 ARG DEBIAN_FRONTEND=noninteractive
+ARG ID=1000
 ARG LANGUAGE=de_DE
 ARG TZ=Europe/Berlin
 
@@ -20,10 +21,11 @@ ENV LANG=$LANGUAGE.UTF-8
 #
 COPY rootfs/ /
 
-RUN mkdir \
+RUN groupadd -g $ID app && \
+    useradd -u $ID -g app -m app && \
+    mkdir \
         /app \
-        /data \
-        /home/app && \
+        /data && \
     apt-get -y update && \
     apt-get -y --no-install-recommends install \
         locales \
