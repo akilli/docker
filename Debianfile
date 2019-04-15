@@ -38,11 +38,7 @@ RUN groupadd -g $ID app && \
         tzdata && \
     apt-get -y --purge autoremove && \
     apt-get -y clean && \
-    rm -rf \
-        /etc/group- \
-        /etc/passwd- \
-        /etc/shadow- \
-        /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*
 
 ########################################################################################################################
 # Base Image

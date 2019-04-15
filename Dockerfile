@@ -27,11 +27,7 @@ RUN addgroup -g $ID app && \
         tzdata && \
     cp /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone && \
-    rm -rf \
-        /etc/TZ \
-        /etc/group- \
-        /etc/passwd- \
-        /etc/shadow- && \
+    rm -rf /etc/TZ && \
     apk del \
         .deps
 
