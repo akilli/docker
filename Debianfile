@@ -1,0 +1,48 @@
+FROM akilli/base:debian
+
+LABEL maintainer="Ayhan Akilli"
+
+#
+# Build variables
+#
+ARG DEBIAN_FRONTEND=noninteractive
+ARG PHP=7.3
+
+#
+# Setup
+#
+RUN apt-get -y update && \
+    apt-get -y --no-install-recommends install \
+        php$PHP \
+        php$PHP-cli \
+        php$PHP-curl \
+        php$PHP-fpm \
+        php$PHP-gd \
+        php$PHP-intl \
+        php$PHP-json \
+        php$PHP-ldap \
+        php$PHP-mbstring \
+        php$PHP-mysql \
+        php$PHP-opcache \
+        php$PHP-pgsql \
+        php$PHP-soap \
+        php$PHP-sqlite3 \
+        php$PHP-xml \
+        php$PHP-xsl \
+        php$PHP-zip && \
+    apt-get -y --purge autoremove && \
+    apt-get -y clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir -p /etc/s6/php && \
+    ln -s php-fpm7.3 /usr/sbin/php-fpm && \
+    ln -s ../../mods-available/php.ini /etc/php/$PHP/cli/conf.d/90-php.ini && \
+    ln -s ../../mods-available/php.ini /etc/php/$PHP/fpm/conf.d/90-php.ini
+
+COPY php.ini /etc/php/$PHP/mods-available/php.ini
+COPY php-fpm.conf /etc/php/$PHP/fpm/php-fpm.conf
+COPY s6/ /etc/s6/php/
+
+#
+# Ports
+#
+EXPOSE 9000

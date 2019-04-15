@@ -19,11 +19,11 @@ RUN apk add --no-cache \
         php7-ldap \
         php7-mbstring \
         php7-mysqlnd \
+        php7-opcache \
         php7-pdo \
         php7-pdo_mysql \
         php7-pdo_pgsql \
         php7-pdo_sqlite \
-        php7-opcache \
         php7-pgsql \
         php7-session \
         php7-simplexml \
@@ -34,9 +34,13 @@ RUN apk add --no-cache \
         php7-xmlwriter \
         php7-xsl \
         php7-zip \
-        php7-zlib
+        php7-zlib && \
+    rm -rf /etc/php7/php-fpm.d && \
+    ln -s php-fpm7 /usr/sbin/php-fpm
 
-COPY etc/ /etc/
+COPY php.ini /etc/php7/conf.d/90-php.ini
+COPY php-fpm.conf /etc/php7/php-fpm.conf
+COPY s6/ /etc/s6/php/
 
 #
 # Ports
