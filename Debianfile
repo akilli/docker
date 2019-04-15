@@ -6,14 +6,14 @@ FROM debian:buster-slim AS builder
 #
 # Build variables
 #
-ARG BASE=de_DE
 ARG DEBIAN_FRONTEND=noninteractive
+ARG LANGUAGE=de_DE
 ARG TZ=Europe/Berlin
 
 #
 # Environment variables
 #
-ENV LANG=$BASE.UTF-8
+ENV LANG=$LANGUAGE.UTF-8
 
 #
 # Setup
@@ -28,7 +28,7 @@ RUN mkdir \
     apt-get -y --no-install-recommends install \
         locales \
         s6 && \
-    localedef -i $BASE -c -f UTF-8 -A /usr/share/locale/locale.alias $LANG && \
+    localedef -i $LANGUAGE -c -f UTF-8 -A /usr/share/locale/locale.alias $LANG && \
     unlink /etc/localtime && \
     cp /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone && \
@@ -50,9 +50,14 @@ FROM scratch
 LABEL maintainer="Ayhan Akilli"
 
 #
+# Build variables
+#
+ARG LANGUAGE=de_DE
+
+#
 # Environment variables
 #
-ENV LANG=$BASE.UTF-8
+ENV LANG=$LANGUAGE.UTF-8
 
 #
 # Setup
