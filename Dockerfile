@@ -19,6 +19,7 @@ RUN mkdir \
         /data \
         /home/app && \
     apk add --no-cache \
+        bash \
         s6 \
         su-exec && \
     apk add --no-cache --virtual .deps \
