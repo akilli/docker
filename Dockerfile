@@ -26,7 +26,7 @@ RUN apk add --no-cache \
     echo 'app ALL = NOPASSWD: /usr/bin/docker, /usr/bin/docker-compose' >> /etc/sudoers && \
     mkdir /app/cache
 
-COPY s6/ /etc/s6/
+COPY s6/ /etc/s6/jenkins/
 
 #
 # Ports
