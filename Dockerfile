@@ -7,7 +7,7 @@ LABEL maintainer="Ayhan Akilli"
 #
 RUN apk add --no-cache \
         nginx \
-        libressl && \
+        openssl && \
     rm /etc/nginx/conf.d/default.conf && \
     chown app:app /var/tmp/nginx && \
     mkdir /etc/nginx/ssl && \
