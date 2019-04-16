@@ -47,6 +47,7 @@ RUN groupadd -g $ID app && \
         /data && \
     apt-get -y update && \
     apt-get -y --no-install-recommends install \
+        cron \
         locales \
         s6 && \
     localedef -i $LANGUAGE -c -f UTF-8 -A /usr/share/locale/locale.alias $LANG && \
