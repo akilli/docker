@@ -33,7 +33,6 @@ RUN apt-get -y update && \
     apt-get -y --purge autoremove && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/* && \
-    mkdir -p /etc/s6/php && \
     ln -s php-fpm7.3 /usr/sbin/php-fpm && \
     ln -s ../../mods-available/php.ini /etc/php/$PHP/cli/conf.d/90-php.ini && \
     ln -s ../../mods-available/php.ini /etc/php/$PHP/fpm/conf.d/90-php.ini
