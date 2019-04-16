@@ -47,7 +47,7 @@ COPY rootfs/ /
 COPY --from=builder /tmp/su-exec/su-exec /usr/local/bin/su-exec
 
 RUN groupadd -g $ID app && \
-    useradd -u $ID -g app -m app && \
+    useradd -u $ID -g app -s /bin/bash -m app && \
     mkdir \
         /app \
         /data && \
