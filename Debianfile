@@ -1,4 +1,25 @@
+########################################################################################################################
+# Build Image
+########################################################################################################################
+FROM debian:buster-slim AS builder
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get -y update && \
+    apt-get -y --no-install-recommends install \
+        build-essential \
+        ca-certificates \
+        git && \
+    git clone https://github.com/ncopa/su-exec.git /tmp/su-exec && \
+    cd /tmp/su-exec && \
+    make
+
+########################################################################################################################
+# Base Image
+########################################################################################################################
 FROM debian:buster-slim
+
+LABEL maintainer="Ayhan Akilli"
 
 #
 # Build variables
@@ -17,6 +38,7 @@ ENV LANG=$LANGUAGE.UTF-8
 # Setup
 #
 COPY rootfs/ /
+COPY --from=builder /tmp/su-exec/su-exec /usr/local/bin/su-exec
 
 RUN groupadd -g $ID app && \
     useradd -u $ID -g app -m app && \
