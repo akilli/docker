@@ -1,0 +1,28 @@
+FROM akilli/base:debian
+
+LABEL maintainer="Ayhan Akilli"
+
+#
+# Setup
+#
+RUN apt-get -y update && \
+    apt-get -y --no-install-recommends install \
+        nginx \
+        openssl && \
+    apt-get -y --purge autoremove && \
+    apt-get -y clean && \
+    rm -rf \
+        /etc/nginx/sites-available \
+        /etc/nginx/sites-enabled \
+        /etc/nginx/snippets/* \
+        /var/lib/apt/lists/* \
+        /var/www/html && \
+    mkdir /etc/nginx/ssl && \
+    openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
+
+COPY rootfs/ /
+
+#
+# Ports
+#
+EXPOSE 80 443
