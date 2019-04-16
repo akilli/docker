@@ -3,18 +3,24 @@ FROM akilli/base:debian
 LABEL maintainer="Ayhan Akilli"
 
 #
+# Build variables
+#
+ARG PG=11
+
+#
 # Environment variables
 #
 ENV PGDATA=/data \
-    PGPASS=app
+    PGPASS=app \
+    PATH=/usr/lib/postgresql/$PG/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 #
 # Setup
 #
 RUN apt-get -y update && \
     apt-get -y --no-install-recommends install \
-        postgresql \
-        postgresql-contrib && \
+        postgresql-$PG \
+        postgresql-contrib-$PG && \
     apt-get -y --purge autoremove && \
     apt-get -y clean && \
     rm -rf \
