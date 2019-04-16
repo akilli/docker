@@ -1,7 +1,4 @@
-########################################################################################################################
-# Build Image
-########################################################################################################################
-FROM debian:buster-slim AS builder
+FROM debian:buster-slim
 
 #
 # Build variables
@@ -39,28 +36,6 @@ RUN groupadd -g $ID app && \
     apt-get -y --purge autoremove && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
-
-########################################################################################################################
-# Base Image
-########################################################################################################################
-FROM scratch
-
-LABEL maintainer="Ayhan Akilli"
-
-#
-# Build variables
-#
-ARG LANGUAGE=de_DE
-
-#
-# Environment variables
-#
-ENV LANG=$LANGUAGE.UTF-8
-
-#
-# Setup
-#
-COPY --from=builder / /
 
 #
 # Command
