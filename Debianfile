@@ -58,7 +58,8 @@ RUN groupadd -g $ID app && \
         tzdata && \
     apt-get -y --purge autoremove && \
     apt-get -y clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    ln -s cron /usr/sbin/crond
 
 #
 # Command
