@@ -49,7 +49,8 @@ RUN apk add --no-cache \
         /data/git \
         /data/gogs
 
-COPY rootfs/ /
+COPY conf/ /data/conf/
+COPY s6/ /etc/s6/gogs/
 COPY --from=builder /app/ /app/
 
 #
