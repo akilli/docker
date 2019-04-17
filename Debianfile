@@ -1,0 +1,63 @@
+########################################################################################################################
+# Build Image
+########################################################################################################################
+FROM akilli/base:debian AS builder
+
+#
+# Build variables
+#
+ARG DEBIAN_FRONTEND=noninteractive
+ARG GOGS=github.com/gogs/gogs
+ARG GOPATH=/tmp/go
+
+#
+# Setup
+#
+RUN apt-get -y update && \
+    apt-get -y --no-install-recommends install \
+        build-essential \
+        ca-certificates \
+        git \
+        golang && \
+    go get -v -u -tags sqlite $GOGS && \
+    cd $GOPATH/src/$GOGS && \
+    CGO_ENABLED=1 GOOS=linux go build -a -tags sqlite -installsuffix cgo -ldflags="-s -w" -o /app/gogs . && \
+    mv public /app && \
+    mv templates /app && \
+    rm -rf /app/public/less
+
+########################################################################################################################
+# Gogs Image
+########################################################################################################################
+FROM akilli/base:debian
+
+LABEL maintainer="Ayhan Akilli"
+
+#
+# Environment variables
+#
+ENV GOGS_CUSTOM=/data/custom \
+    USER=app
+
+#
+# Setup
+#
+RUN apt-get -y update && \
+    apt-get -y --no-install-recommends install \
+        git \
+        sqlite3 && \
+    apt-get -y --purge autoremove && \
+    apt-get -y clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir \
+        /data/git \
+        /data/gogs
+
+COPY conf/ /data/conf/
+COPY s6/ /etc/s6/gogs/
+COPY --from=builder /app/ /app/
+
+#
+# Ports
+#
+EXPOSE 3000
