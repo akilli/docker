@@ -3,6 +3,11 @@ FROM akilli/base
 LABEL maintainer="Ayhan Akilli"
 
 #
+# Build variables
+#
+ARG DC=1.24.0
+
+#
 # Environment variables
 #
 ENV JENKINS_GROUP=app \
@@ -18,11 +23,11 @@ RUN apk add --no-cache \
         docker \
         git \
         openjdk8 \
-        py-pip \
         sudo \
         ttf-dejavu && \
-    wget -O /app/jenkins.war $JENKINS_URL && \
-    pip install docker-compose && \
+    curl -fsSL $JENKINS_URL -o /app/jenkins.war && \
+    curl -L https://github.com/docker/compose/releases/download/$DC/docker-compose-Linux-x86_64 -o /usr/bin/docker-compose && \
+    chmod +x /usr/bin/docker-compose && \
     echo 'app ALL = NOPASSWD: /usr/bin/docker, /usr/bin/docker-compose' >> /etc/sudoers && \
     mkdir /app/cache
 
