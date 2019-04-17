@@ -12,15 +12,13 @@ ARG GOPATH=/tmp/go
 #
 # Setup
 #
-RUN apk add --no-cache --virtual .deps \
+RUN apk add --no-cache \
         build-base \
         git \
         go && \
     go get -v -u -tags sqlite $GOGS && \
     cd $GOPATH/src/$GOGS && \
     CGO_ENABLED=1 GOOS=linux go build -a -tags sqlite -installsuffix cgo -ldflags="-s -w" -o /app/gogs . && \
-    apk del \
-        .deps && \
     mv public /app && \
     mv templates /app && \
     rm -rf /app/public/less
