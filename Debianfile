@@ -5,9 +5,9 @@ LABEL maintainer="Ayhan Akilli"
 #
 # Build variables
 #
+ARG COMPOSE_URL=https://github.com/docker/compose/releases/download/1.24.0/docker-compose-Linux-x86_64
 ARG DEBIAN_FRONTEND=noninteractive
-ARG URL_COMPOSE=https://github.com/docker/compose/releases/download/1.24.0/docker-compose-Linux-x86_64
-ARG URL_JENKINS=https://updates.jenkins-ci.org/latest/jenkins.war
+ARG JENKINS_URL=https://updates.jenkins-ci.org/latest/jenkins.war
 
 #
 # Environment variables
@@ -32,7 +32,7 @@ RUN mkdir -p \
         git \
         openjdk-11-jre-headless \
         sudo && \
-    curl -fsSL $URL_JENKINS -o /app/jenkins.war && \
+    curl -fsSL $JENKINS_URL -o /app/jenkins.war && \
     curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
     echo "deb [arch=amd64] https://download.docker.com/linux/debian buster stable" > /etc/apt/sources.list.d/docker.list && \
     apt-get -y update && \
@@ -40,7 +40,7 @@ RUN mkdir -p \
         docker-ce \
         docker-ce-cli \
         containerd.io && \
-    curl -L $URL_COMPOSE -o /usr/bin/docker-compose && \
+    curl -fsSL $COMPOSE_URL -o /usr/bin/docker-compose && \
     chmod +x /usr/bin/docker-compose && \
     echo 'app ALL = NOPASSWD: /usr/bin/docker, /usr/bin/docker-compose' >> /etc/sudoers && \
     apt-get -y --purge remove \
