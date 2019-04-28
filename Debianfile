@@ -20,8 +20,8 @@ ENV JENKINS_GROUP=app \
 # Setup
 #
 RUN mkdir -p \
-    mkdir /app/cache \
-    /usr/share/man/man1 && \
+        /app/cache \
+        /usr/share/man/man1 && \
     apt-get -y update && \
     apt-get -y --no-install-recommends install \
         apt-transport-https \
