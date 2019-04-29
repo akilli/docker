@@ -50,7 +50,8 @@ RUN groupadd -g $ID app && \
     useradd -u $ID -g app -s /bin/bash -m app && \
     mkdir \
         /app \
-        /data && \
+        /data \
+        /usr/share/man/man1 && \
     apt-get -y update && \
     apt-get -y --no-install-recommends install \
         cron \
