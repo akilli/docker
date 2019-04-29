@@ -1,4 +1,4 @@
-FROM akilli/base
+FROM akilli/docker
 
 LABEL maintainer="Ayhan Akilli"
 
@@ -18,26 +18,11 @@ ENV JENKINS_GROUP=app \
 # Setup
 #
 RUN apk add --no-cache \
-        curl \
-        docker \
         git \
         openjdk8-jre \
-        py-pip \
-        sudo \
         ttf-dejavu && \
     curl -fsSL $JENKINS_URL -o /app/jenkins.war && \
-    mkdir /app/cache && \
-    apk add --no-cache --virtual .deps \
-        gcc \
-        libc-dev \
-        libffi-dev \
-        make \
-        openssl-dev \
-        python-dev && \
-    pip install docker-compose && \
-    apk del \
-        .deps && \
-    echo 'app ALL = NOPASSWD: /usr/bin/docker, /usr/bin/docker-compose' >> /etc/sudoers
+    mkdir /app/cache
 
 COPY s6/ /etc/s6/jenkins/
 

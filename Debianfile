@@ -1,11 +1,10 @@
-FROM akilli/base:debian
+FROM akilli/docker:debian
 
 LABEL maintainer="Ayhan Akilli"
 
 #
 # Build variables
 #
-ARG COMPOSE_URL=https://github.com/docker/compose/releases/download/1.24.0/docker-compose-Linux-x86_64
 ARG DEBIAN_FRONTEND=noninteractive
 ARG JENKINS_URL=https://updates.jenkins-ci.org/latest/jenkins.war
 
@@ -24,28 +23,10 @@ RUN mkdir -p \
         /usr/share/man/man1 && \
     apt-get -y update && \
     apt-get -y --no-install-recommends install \
-        apt-transport-https \
-        ca-certificates \
-        curl \
         fonts-dejavu \
-        gnupg2 \
         git \
-        openjdk-11-jre-headless \
-        sudo && \
+        openjdk-11-jre-headless && \
     curl -fsSL $JENKINS_URL -o /app/jenkins.war && \
-    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-    echo "deb [arch=amd64] https://download.docker.com/linux/debian buster stable" > /etc/apt/sources.list.d/docker.list && \
-    apt-get -y update && \
-    apt-get -y --no-install-recommends install \
-        docker-ce \
-        docker-ce-cli \
-        containerd.io && \
-    curl -fsSL $COMPOSE_URL -o /usr/bin/docker-compose && \
-    chmod +x /usr/bin/docker-compose && \
-    echo 'app ALL = NOPASSWD: /usr/bin/docker, /usr/bin/docker-compose' >> /etc/sudoers && \
-    apt-get -y --purge remove \
-        apt-transport-https \
-        gnupg2 && \
     apt-get -y --purge autoremove && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
