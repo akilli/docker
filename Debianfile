@@ -18,9 +18,7 @@ ENV JENKINS_GROUP=app \
 #
 # Setup
 #
-RUN mkdir -p \
-        /app/cache \
-        /usr/share/man/man1 && \
+RUN mkdir -p /app/cache && \
     apt-get -y update && \
     apt-get -y --no-install-recommends install \
         fonts-dejavu \
