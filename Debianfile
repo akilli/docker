@@ -8,7 +8,10 @@ LABEL maintainer="Ayhan Akilli"
 RUN apt-get -y update && \
     apt-get -y --no-install-recommends install \
         docker-registry && \
-    rm -rf /var/lib/docker-registry
+    rm -rf \
+        /etc/docker/registry/config.yml \
+        /var/lib/docker-registry && \
+    ln -s /etc/docker-registry/config.yml /etc/docker/registry/config.yml
 
 COPY etc/ /etc/
 
