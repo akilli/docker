@@ -12,12 +12,16 @@ RUN apt-get -y update && \
     apt-get -y --purge autoremove && \
     apt-get -y clean && \
     rm -rf \
+        /etc/nginx/modules-available \
+        /etc/nginx/modules-enabled \
         /etc/nginx/sites-available \
         /etc/nginx/sites-enabled \
         /etc/nginx/snippets/* \
         /var/lib/apt/lists/* \
         /var/www/html && \
-    mkdir /etc/nginx/ssl && \
+    mkdir -p \
+        /etc/nginx/modules \
+        /etc/nginx/ssl && \
     openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
 
 COPY rootfs/ /
