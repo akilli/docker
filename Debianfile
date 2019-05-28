@@ -12,7 +12,9 @@ RUN apt-get -y update && \
         npm && \
     apt-get -y --purge autoremove && \
     apt-get -y clean && \
-    rm -rf /var/lib/apt/lists/* && \
+    rm -rf \
+        /var/cache/apt/* \
+        /var/lib/apt/lists/* && \
     npm install -g \
         npm@latest && \
     rm -rf \
