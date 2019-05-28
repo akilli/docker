@@ -17,6 +17,7 @@ RUN apt-get -y update && \
         /etc/nginx/sites-available \
         /etc/nginx/sites-enabled \
         /etc/nginx/snippets/* \
+        /var/cache/apt/* \
         /var/lib/apt/lists/* \
         /var/www/html && \
     mkdir -p \
