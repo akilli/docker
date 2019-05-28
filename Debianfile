@@ -27,7 +27,9 @@ RUN mkdir -p /app/cache && \
     curl -fsSL $JENKINS_URL -o /app/jenkins.war && \
     apt-get -y --purge autoremove && \
     apt-get -y clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf \
+        /var/cache/apt/* \
+        /var/lib/apt/lists/*
 
 COPY s6/ /etc/s6/jenkins/
 
