@@ -48,7 +48,9 @@ RUN apt-get -y update && \
         sqlite3 && \
     apt-get -y --purge autoremove && \
     apt-get -y clean && \
-    rm -rf /var/lib/apt/lists/* && \
+    rm -rf \
+        /var/cache/apt/* \
+        /var/lib/apt/lists/* && \
     mkdir \
         /data/git \
         /data/gogs
