@@ -5,7 +5,7 @@ LABEL maintainer="Ayhan Akilli"
 #
 # Setup
 #
-RUN apk add --no-cache \
+RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/main -X http://dl-cdn.alpinelinux.org/alpine/edge/community \
         php7 \
         php7-ctype \
         php7-curl \
@@ -33,8 +33,7 @@ RUN apk add --no-cache \
         php7-xmlreader \
         php7-xmlwriter \
         php7-xsl \
-        php7-zip \
-        php7-zlib && \
+        php7-zip && \
     rm -rf /etc/php7/php-fpm.d && \
     ln -s php-fpm7 /usr/sbin/php-fpm
 
