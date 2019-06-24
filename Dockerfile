@@ -5,7 +5,7 @@ LABEL maintainer="Ayhan Akilli"
 #
 # Setup
 #
-RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/main -X http://dl-cdn.alpinelinux.org/alpine/edge/community \
+RUN apk add --no-cache \
         php7 \
         php7-ctype \
         php7-curl \
