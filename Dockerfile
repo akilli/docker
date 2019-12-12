@@ -2,46 +2,111 @@ FROM akilli/base
 
 LABEL maintainer="Ayhan Akilli"
 
-#
-# Setup
-#
+ARG CFLAGS="-fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64"
+ARG CPPFLAGS="$CFLAGS"
+ARG LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie"
+
+ENV PHP_INI_DIR=/etc/php
+ENV PHP_VERSION 7.4.0
+
 RUN apk add --no-cache \
-        php7 \
-        php7-ctype \
-        php7-curl \
-        php7-dom \
-        php7-fileinfo \
-        php7-fpm \
-        php7-gd \
-        php7-iconv \
-        php7-intl \
-        php7-json \
-        php7-ldap \
-        php7-mbstring \
-        php7-mysqlnd \
-        php7-opcache \
-        php7-pdo \
-        php7-pdo_mysql \
-        php7-pdo_pgsql \
-        php7-pdo_sqlite \
-        php7-pgsql \
-        php7-session \
-        php7-simplexml \
-        php7-soap \
-        php7-sqlite3 \
-        php7-xml \
-        php7-xmlreader \
-        php7-xmlwriter \
-        php7-xsl \
-        php7-zip && \
-    rm -rf /etc/php7/php-fpm.d && \
-    ln -s php-fpm7 /usr/sbin/php-fpm
+        argon2-libs \
+        ca-certificates \
+        curl \
+        freetype \
+        icu-libs \
+        libedit \
+        libjpeg-turbo \
+        libldap \
+        libpng \
+        libpq \
+        libsodium \
+        libwebp \
+        libxml2 \
+        libxslt \
+        libzip \
+        oniguruma \
+        openssl \
+        sqlite-libs \
+        tar \
+        xz && \
+    apk add --no-cache --virtual .deps \
+        # phpize deps
+        autoconf \
+        build-base \
+        dpkg \
+        dpkg-dev \
+        re2c \
+        # build deps
+        argon2-dev \
+        coreutils \
+        curl-dev \
+        freetype-dev \
+        icu-dev \
+        libedit-dev \
+        libjpeg-turbo-dev \
+        libpng-dev \
+        libsodium-dev \
+        libxml2-dev \
+        libxslt-dev \
+        libzip-dev \
+        libwebp-dev \
+        linux-headers \
+        oniguruma-dev \
+        openldap-dev \
+        openssl-dev \
+        postgresql-dev \
+        sqlite-dev && \
+    apk add --no-cache --virtual .phpize-deps \
+         && \
+    cd /tmp && \
+    wget -O php.tar.xz https://www.php.net/get/php-${PHP_VERSION}.tar.xz/from/this/mirror && \
+    mkdir -p \
+        $PHP_INI_DIR/conf.d \
+        /tmp/php && \
+    tar -Jxf php.tar.xz -C /tmp/php --strip-components=1 && \
+    cd /tmp/php && \
+    ./configure \
+        --disable-cgi \
+        --disable-phar \
+        --enable-fpm \
+        --enable-ftp \
+        --enable-gd \
+        --enable-intl \
+        --enable-opcache \
+        --enable-option-checking=fatal \
+        --enable-mbstring \
+        --enable-mysqlnd \
+        --enable-soap \
+        --sysconfdir="$PHP_INI_DIR" \
+        --with-config-file-path="$PHP_INI_DIR" \
+        --with-config-file-scan-dir="$PHP_INI_DIR/conf.d" \
+        --with-curl \
+        --with-freetype \
+        --with-jpeg \
+        --with-ldap \
+        --with-ldap-sasl \
+        --with-libedit \
+        --with-openssl \
+        --with-password-argon2 \
+        --with-pdo-mysql \
+        --with-pdo-pgsql \
+        --with-pdo-sqlite \
+        --with-pgsql \
+        --with-sodium=shared \
+        --with-sqlite3 \
+        --with-xsl \
+        --with-webp \
+        --with-zip \
+        --with-zlib && \
+    make -j "$(nproc)" && \
+    find -type f -name '*.a' -delete && \
+    make install && \
+    find /usr/local/bin /usr/local/sbin -type f -perm +0111 -exec strip --strip-all '{}' + || true && \
+    make clean && \
+    mv php.ini-production $PHP_INI_DIR/php.ini && \
+    rm -rf /tmp/* && \
+    apk del \
+        .deps
 
-COPY php.ini /etc/php7/conf.d/90-php.ini
-COPY php-fpm.conf /etc/php7/php-fpm.conf
-COPY s6/ /etc/s6/php/
-
-#
-# Ports
-#
-EXPOSE 9000
+COPY etc/ /etc/
