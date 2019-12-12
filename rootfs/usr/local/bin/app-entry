@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -eux
 
 if [ -d /init ]; then
     run-parts --exit-on-error /init

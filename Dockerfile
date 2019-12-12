@@ -1,24 +1,13 @@
-FROM alpine
+FROM alpine:edge
 
 LABEL maintainer="Ayhan Akilli"
 
-#
-# Build variables
-#
 ARG ID=1000
 ARG LANG=de_DE.UTF-8
 ARG TZ=Europe/Berlin
 
-#
-# Environment variables
-#
-ENV LANG=$LANG \
-    MUSL_LOCPATH="/usr/share/i18n/locales/musl"
-
-#
-# Setup
-#
-COPY rootfs/ /
+ENV LANG=$LANG
+ENV MUSL_LOCPATH=/usr/share/i18n/locales/musl
 
 RUN addgroup -g $ID app && \
     adduser -u $ID -G app -s /bin/ash -D app && \
@@ -44,15 +33,15 @@ RUN addgroup -g $ID app && \
     make install && \
     cd / && \
     cp /usr/share/zoneinfo/$TZ /etc/localtime && \
-    echo $TZ > /etc/timezone && \
+    echo "$TZ" > /etc/timezone && \
     rm -rf \
         /etc/TZ \
         /tmp/musl-locales && \
     apk del \
         .deps
 
-#
-# Command
-#
+COPY rootfs/ /
+
 ENTRYPOINT ["app-entry"]
+
 CMD []

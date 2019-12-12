@@ -1,0 +1,6 @@
+version: "3.7"
+services:
+  base:
+    image: akilli/base
+    restart: unless-stopped
+    tty: true
