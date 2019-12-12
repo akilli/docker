@@ -1,0 +1,11 @@
+version: "3.7"
+volumes:
+  data: {}
+services:
+  postgres:
+    image: akilli/postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - data:/data

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -eux
 
 if [ -z "$(ls -A /data)" ]; then
     su-exec app initdb -E UTF8 -U app
@@ -26,8 +26,8 @@ EOF
     if [ -d /init/postgres ]; then
         su-exec app pg_ctl -o "-c listen_addresses='localhost'" -w start
 
-        for file in `find /init/postgres -type f -name '*.sql' | sort`; do
-            su-exec app psql -f $file app
+        for file in $(find /init/postgres -type f -name '*.sql' | sort); do
+            su-exec app psql -f "$file" app
         done
 
         su-exec app pg_ctl -m fast -w stop
