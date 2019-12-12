@@ -1,3 +1,0 @@
-#!/bin/sh
-
-su-exec app /app/gogs web -c /data/conf/app.ini

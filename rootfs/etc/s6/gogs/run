@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eux
+
+su-exec app gogs web
