@@ -2,31 +2,17 @@ FROM akilli/docker
 
 LABEL maintainer="Ayhan Akilli"
 
-#
-# Build variables
-#
-ARG JENKINS_URL=https://updates.jenkins-ci.org/latest/jenkins.war
+ENV JAVA_HOME=/usr/lib/jvm/default-jvm
+ENV JENKINS_GROUP=app
+ENV JENKINS_HOME=/data
+ENV JENKINS_USER=app
 
-#
-# Environment variables
-#
-ENV JENKINS_GROUP=app \
-    JENKINS_HOME=/data \
-    JENKINS_USER=app
-
-#
-# Setup
-#
 RUN apk add --no-cache \
         git \
         openjdk8-jre \
         ttf-dejavu && \
-    curl -fsSL $JENKINS_URL -o /app/jenkins.war && \
-    mkdir /app/cache
+    wget -O /app/jenkins.war https://updates.jenkins-ci.org/latest/jenkins.war && \
+    mkdir -p /var/cache/jenkins && \
+    chown app:app /var/cache/jenkins
 
 COPY s6/ /etc/s6/jenkins/
-
-#
-# Ports
-#
-EXPOSE 8080

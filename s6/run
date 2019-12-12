@@ -1,3 +1,5 @@
 #!/bin/sh
 
-su-exec app java -Djava.awt.headless=true -jar /app/jenkins.war --webroot=/app/cache --httpPort=8080
+set -eux
+
+su-exec app java -Djava.awt.headless=true -jar /app/jenkins.war --webroot=/var/cache/jenkins
