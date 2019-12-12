@@ -4,18 +4,4 @@
 
 Uses the `app` user that is created in the `akilli/base` image.
 
-## Usage
-
-In your `docker-compose.yml` include something like
-
-    volumes:
-      registry: {}
-    services:
-      registry:
-        image: akilli/registry
-        ports:
-          - "5000:5000"
-        volumes:
-          - source: registry
-            target: /data
-            type: volume
+You can use [`docker-compose.yml`](https://github.com/akilli/docker/blob/master/registry/docker-compose.yml) as a starting point for your configuration.
