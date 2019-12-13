@@ -7,7 +7,7 @@ ARG CPPFLAGS="$CFLAGS"
 ARG LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie"
 
 ENV PHP_INI_DIR=/etc/php
-ENV PHP_VERSION 7.4.0
+ENV PHP_VERSION=7.4.0
 
 RUN apk add --no-cache \
         argon2-libs \
@@ -57,8 +57,6 @@ RUN apk add --no-cache \
         openssl-dev \
         postgresql-dev \
         sqlite-dev && \
-    apk add --no-cache --virtual .phpize-deps \
-         && \
     cd /tmp && \
     wget -O php.tar.xz https://www.php.net/get/php-${PHP_VERSION}.tar.xz/from/this/mirror && \
     mkdir -p \
