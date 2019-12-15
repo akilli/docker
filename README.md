@@ -4,4 +4,4 @@ A quite minimal base image built from `alpine:edge` with pre-installed `s6` pack
 
 A default entrypoint `app-entry` is provided and ensures that all executable scripts wihin the `/init`, p.e. to set proper ownership of the custom directories, are executed by `run-parts` before executing the passed `CMD` command (default: `s6-svscan /etc/s6`). The pre-configured `s6` scan directory is `/etc/s6`.
 
-You can use [`docker-compose.yml`](https://github.com/akilli/docker/blob/master/base/docker-compose.yml) to start a container and have a look around within this image.
+You can use the example docker-compose.yml to start a container and have a look around within this image.
