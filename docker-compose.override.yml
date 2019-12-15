@@ -1,0 +1,5 @@
+version: "3.7"
+services:
+  php:
+    volumes:
+      - ./php.dev.ini:/etc/php/conf.d/zzz.ini

@@ -19,4 +19,4 @@ For development, some of these settings are surely not suitable, so you likely w
 - use different fpm pools or
 - do something completely different.
 
-You can use [`docker-compose.yml`](https://github.com/akilli/docker/blob/master/php/docker-compose.yml) as a starting point for your configuration.
+You can use [`docker-compose.yml`](https://github.com/akilli/docker/blob/master/php/docker-compose.yml) and [`docker-compose.override.yml`](https://github.com/akilli/docker/blob/master/php/docker-compose.override.yml) as a starting point for your configuration.
