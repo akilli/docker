@@ -12,6 +12,7 @@ RUN apk add --no-cache \
         /data/attachements \
         /data/avatars \
         /data/git \
-        /data/gogs
+        /data/gogs && \
+    rm -rf /var/lib/gogs
 
 COPY rootfs/ /
