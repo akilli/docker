@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eux
+
+s6-svscanctl -t /s6

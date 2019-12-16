@@ -6,4 +6,5 @@ RUN apk add --no-cache \
         docker-registry && \
     rm -rf /var/lib/registry
 
-COPY etc/ /etc/
+COPY s6/ /s6/registry/
+COPY config.yml /etc/docker-registry/config.yml
