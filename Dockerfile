@@ -14,4 +14,5 @@ RUN apk add --no-cache \
     chown -R app:app /run/postgresql && \
     rm -rf /var/lib/postgresql
 
-COPY rootfs/ /
+COPY init/ /init/
+COPY s6/ /s6/postgres/
