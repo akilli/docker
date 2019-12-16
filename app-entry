@@ -7,7 +7,7 @@ if [ -d /init ]; then
 fi
 
 if [ $# = 0 ]; then
-    exec s6-svscan /etc/s6
+    exec s6-svscan /s6
 else
     exec "$@"
 fi

@@ -11,7 +11,12 @@ ENV MUSL_LOCPATH=/usr/share/i18n/locales/musl
 
 RUN addgroup -g $ID app && \
     adduser -u $ID -G app -s /bin/ash -D app && \
-    mkdir \
+    mkdir -p \
+        /app \
+        /data \
+        /init \
+        /s6 && \
+    chown -R app:app \
         /app \
         /data && \
     apk add --no-cache \
@@ -40,7 +45,9 @@ RUN addgroup -g $ID app && \
     apk del \
         .deps
 
-COPY rootfs/ /
+COPY init/ /init/
+COPY s6/ /s6/
+COPY app-entry /usr/local/bin/app-entry
 
 ENTRYPOINT ["app-entry"]
 
