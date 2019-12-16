@@ -107,4 +107,5 @@ RUN apk add --no-cache \
     apk del \
         .deps
 
-COPY etc/ /etc/
+COPY etc/ /etc/php/
+COPY s6/ /s6/php/
