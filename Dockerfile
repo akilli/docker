@@ -9,11 +9,12 @@ ENV USER=app
 RUN apk add --no-cache \
         gogs && \
     chown -R app:app /var/log/gogs && \
-    mkdir \
+    su-exec app mkdir \
         /data/attachements \
         /data/avatars \
         /data/git \
         /data/gogs && \
     rm -rf /var/lib/gogs
 
-COPY rootfs/ /
+COPY s6/ /s6/gogs/
+COPY app.ini /data/conf/app.ini
