@@ -12,4 +12,6 @@ RUN apk add --no-cache \
     chown -R app:app /var/lib/nginx && \
     rm -rf /etc/nginx/conf.d/default.conf
 
-COPY rootfs/ /
+COPY etc/ /etc/nginx/
+COPY s6/ /s6/nginx/
+COPY default.conf /app/nginx.conf
