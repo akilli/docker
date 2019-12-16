@@ -15,4 +15,4 @@ RUN apk add --no-cache \
     mkdir -p /var/cache/jenkins && \
     chown app:app /var/cache/jenkins
 
-COPY s6/ /etc/s6/jenkins/
+COPY s6/ /s6/jenkins/

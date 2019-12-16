@@ -2,4 +2,4 @@
 
 set -eux
 
-s6-svscanctl -t /etc/s6
+s6-svscanctl -t /s6
