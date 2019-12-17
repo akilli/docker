@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eux
+
+chown -R node:node /srv
