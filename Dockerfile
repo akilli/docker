@@ -2,16 +2,19 @@ FROM akilli/base
 
 LABEL maintainer="Ayhan Akilli"
 
-RUN apk add --no-cache \
+RUN addgroup -g 1000 -S www-data && \
+    adduser -u 1000 -G www-data -s /bin/ash -h /srv -S -D nginx && \
+    apk add --no-cache \
         nginx \
         nginx-mod-http-geoip \
         nginx-mod-http-image-filter \
         openssl && \
     mkdir -p /etc/nginx/ssl && \
     openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048 && \
-    chown -R app:app /var/lib/nginx && \
+    chown -R nginx:www-data /var/lib/nginx && \
     rm -rf /etc/nginx/conf.d/default.conf
 
 COPY etc/ /etc/nginx/
+COPY init/ /init/
 COPY s6/ /s6/nginx/
-COPY default.conf /app/nginx.conf
+COPY default.conf /srv/nginx.conf
