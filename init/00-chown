@@ -1,5 +1,0 @@
-#!/bin/sh
-
-set -eux
-
-chown -R app:app /app /data /home/app || true

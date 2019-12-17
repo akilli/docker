@@ -2,7 +2,6 @@ FROM alpine:edge
 
 LABEL maintainer="Ayhan Akilli"
 
-ARG ID=1000
 ARG LANG=de_DE.UTF-8
 ARG TZ=Europe/Berlin
 
@@ -11,20 +10,11 @@ ENV MUSL_LOCPATH=/usr/share/i18n/locales/musl
 
 RUN apk add --no-cache \
         ca-certificates \
-        libintl \
         s6 \
         su-exec && \
-    # app user
-    addgroup -g $ID app && \
-    adduser -u $ID -G app -s /bin/ash -D app && \
     mkdir -p \
-        /app \
-        /data \
         /init \
         /s6 && \
-    chown -R app:app \
-        /app \
-        /data && \
     # timezone
     apk add --no-cache tzdata && \
     cp /usr/share/zoneinfo/$TZ /etc/localtime && \
@@ -32,6 +22,7 @@ RUN apk add --no-cache \
     rm -rf /etc/TZ && \
     apk del tzdata && \
     # locales
+    apk add --no-cache libintl && \
     apk add --no-cache --virtual .locale-deps \
         cmake \
         gcc \
@@ -47,7 +38,7 @@ RUN apk add --no-cache \
     rm -rf /tmp/musl-locales && \
     apk del .locale-deps
 
-COPY init/ /init/
+COPY etc/ /etc/
 COPY s6/ /s6/
 COPY app-entry /usr/local/bin/app-entry
 
