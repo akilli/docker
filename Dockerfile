@@ -10,6 +10,7 @@ ENV LANG=$LANG
 ENV MUSL_LOCPATH=/usr/share/i18n/locales/musl
 
 RUN apk add --no-cache \
+        ca-certificates \
         libintl \
         s6 \
         su-exec && \
