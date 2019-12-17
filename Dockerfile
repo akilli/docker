@@ -11,7 +11,7 @@ RUN apk add --no-cache \
         git \
         openjdk8-jre \
         ttf-dejavu && \
-    wget -O /app/jenkins.war https://updates.jenkins-ci.org/latest/jenkins.war && \
+    wget -O /usr/share/webapps/jenkins/jenkins.war https://updates.jenkins-ci.org/latest/jenkins.war && \
     mkdir -p /var/cache/jenkins && \
     chown app:app /var/cache/jenkins
 
