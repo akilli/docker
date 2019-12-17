@@ -1,18 +1,24 @@
-FROM akilli/docker
+FROM akilli/base
 
 LABEL maintainer="Ayhan Akilli"
 
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm
-ENV JENKINS_GROUP=app
-ENV JENKINS_HOME=/data
-ENV JENKINS_USER=app
+ENV JENKINS_HOME=/var/lib/jenkins
 
-RUN apk add --no-cache \
+RUN addgroup -g 1000 -S jenkins && \
+    adduser -u 1000 -G jenkins -s /bin/ash -h /var/lib/jenkins -S -D jenkins && \
+    mkdir -p \
+        /usr/share/webapps/jenkins \
+        /var/lib/jenkins && \
+    apk add --no-cache \
+        docker-cli \
+        docker-compose \
         git \
         openjdk8-jre \
+        sudo \
         ttf-dejavu && \
-    wget -O /usr/share/webapps/jenkins/jenkins.war https://updates.jenkins-ci.org/latest/jenkins.war && \
-    mkdir -p /var/cache/jenkins && \
-    chown app:app /var/cache/jenkins
+    echo 'jenkins ALL = NOPASSWD: /usr/bin/docker, /usr/bin/docker-compose' >> /etc/sudoers && \
+    wget -O /usr/share/webapps/jenkins/jenkins.war https://updates.jenkins-ci.org/latest/jenkins.war
 
+COPY init/ /init/
 COPY s6/ /s6/jenkins/

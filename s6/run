@@ -2,4 +2,4 @@
 
 set -eux
 
-su-exec app java -Djava.awt.headless=true -jar /usr/share/webapps/jenkins/jenkins.war --webroot=/var/cache/jenkins
+su-exec jenkins java -Djava.awt.headless=true -jar /usr/share/webapps/jenkins/jenkins.war
