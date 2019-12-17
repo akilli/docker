@@ -2,19 +2,15 @@ FROM akilli/base
 
 LABEL maintainer="Ayhan Akilli"
 
-ENV GOGS_CUSTOM=/data
-ENV GOGS_USER=app
-ENV USER=app
+ENV GOGS_CUSTOM=/var/lib/gogs
+ENV GOGS_USER=gogs
+ENV USER=gogs
 
-RUN apk add --no-cache \
-        gogs && \
-    chown -R app:app /var/log/gogs && \
-    su-exec app mkdir \
-        /data/attachements \
-        /data/avatars \
-        /data/git \
-        /data/gogs && \
-    rm -rf /var/lib/gogs
+RUN addgroup -g 1000 -S www-data && \
+    adduser -u 1000 -G www-data -s /bin/ash -h /var/lib/gogs -S -D gogs && \
+    apk add --no-cache \
+        gogs
 
+COPY init/ /init/
 COPY s6/ /s6/gogs/
-COPY app.ini /data/conf/app.ini
+COPY app.ini /var/lib/gogs/conf/app.ini

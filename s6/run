@@ -2,4 +2,4 @@
 
 set -eux
 
-su-exec app gogs web
+su-exec gogs gogs web
