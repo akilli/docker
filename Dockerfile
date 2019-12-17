@@ -11,7 +11,6 @@ ENV PHP_VERSION=7.4.0
 
 RUN apk add --no-cache \
         argon2-libs \
-        ca-certificates \
         curl \
         freetype \
         icu-libs \
