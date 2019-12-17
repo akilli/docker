@@ -9,7 +9,12 @@ ARG TZ=Europe/Berlin
 ENV LANG=$LANG
 ENV MUSL_LOCPATH=/usr/share/i18n/locales/musl
 
-RUN addgroup -g $ID app && \
+RUN apk add --no-cache \
+        libintl \
+        s6 \
+        su-exec && \
+    # app user
+    addgroup -g $ID app && \
     adduser -u $ID -G app -s /bin/ash -D app && \
     mkdir -p \
         /app \
@@ -19,31 +24,27 @@ RUN addgroup -g $ID app && \
     chown -R app:app \
         /app \
         /data && \
-    apk add --no-cache \
-        libintl \
-        s6 \
-        su-exec && \
-    apk add --no-cache --virtual .deps \
+    # timezone
+    apk add --no-cache tzdata && \
+    cp /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo "$TZ" > /etc/timezone && \
+    rm -rf /etc/TZ && \
+    apk del tzdata && \
+    # locales
+    apk add --no-cache --virtual .locale-deps \
         cmake \
         gcc \
         gettext-dev \
         git \
         make \
-        musl-dev \
-        tzdata && \
+        musl-dev && \
     git clone https://gitlab.com/rilian-la-te/musl-locales /tmp/musl-locales && \
     cd /tmp/musl-locales && \
     cmake -DLOCALE_PROFILE=OFF -DCMAKE_INSTALL_PREFIX:PATH=/usr . && \
     make && \
     make install && \
-    cd / && \
-    cp /usr/share/zoneinfo/$TZ /etc/localtime && \
-    echo "$TZ" > /etc/timezone && \
-    rm -rf \
-        /etc/TZ \
-        /tmp/musl-locales && \
-    apk del \
-        .deps
+    rm -rf /tmp/musl-locales && \
+    apk del .locale-deps
 
 COPY init/ /init/
 COPY s6/ /s6/
