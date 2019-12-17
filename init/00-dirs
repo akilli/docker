@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eux
+
+chown -R docker-registry:docker-registry /var/lib/registry

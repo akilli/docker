@@ -8,4 +8,4 @@ services:
     ports:
       - "80:5000"
     volumes:
-      - data:/data
+      - data:/var/lib/registry
