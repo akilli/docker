@@ -29,14 +29,15 @@ RUN apk add --no-cache \
         sqlite-libs \
         tar \
         xz && \
-    apk add --no-cache --virtual .deps \
-        # phpize deps
+    # phpize
+    apk add --no-cache --virtual .phpize-deps \
         autoconf \
         build-base \
         dpkg \
         dpkg-dev \
-        re2c \
-        # build deps
+        re2c && \
+    # build
+    apk add --no-cache --virtual .build-deps \
         argon2-dev \
         coreutils \
         curl-dev \
@@ -104,7 +105,8 @@ RUN apk add --no-cache \
     mv php.ini-production $PHP_INI_DIR/php.ini && \
     rm -rf /tmp/* && \
     apk del \
-        .deps
+        .build-deps \
+        .phpize-deps
 
 COPY etc/ /etc/php/
 COPY s6/ /s6/php/
