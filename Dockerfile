@@ -2,17 +2,18 @@ FROM akilli/base
 
 LABEL maintainer="Ayhan Akilli"
 
-ENV PGDATA=/data
+ENV PGDATA=/var/lib/postgresql
 ENV PGPASS=app
 
-RUN apk add --no-cache \
+RUN addgroup -g 1000 -S postgres && \
+    adduser -u 1000 -G postgres -s /bin/ash -h /var/lib/postgresql -S -D postgres && \
+    apk add --no-cache \
         postgresql \
         postgresql-contrib && \
     mkdir -p \
         /init/postgres \
         /run/postgresql && \
-    chown -R app:app /run/postgresql && \
-    rm -rf /var/lib/postgresql
+    chown -R postgres:postgres /run/postgresql
 
 COPY init/ /init/
 COPY s6/ /s6/postgres/
