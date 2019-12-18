@@ -9,7 +9,9 @@ ARG LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie"
 ENV PHP_INI_DIR=/etc/php
 ENV PHP_VERSION=7.4.0
 
-RUN apk add --no-cache \
+RUN addgroup -g 1000 -S www-data && \
+    adduser -u 1000 -G www-data -s /bin/ash -h /srv -S -D www-data && \
+    apk add --no-cache \
         argon2-libs \
         curl \
         freetype \
@@ -76,6 +78,7 @@ RUN apk add --no-cache \
         --enable-mbstring \
         --enable-mysqlnd \
         --enable-soap \
+        --prefix=/usr \
         --sysconfdir="$PHP_INI_DIR" \
         --with-config-file-path="$PHP_INI_DIR" \
         --with-config-file-scan-dir="$PHP_INI_DIR/conf.d" \
@@ -100,7 +103,7 @@ RUN apk add --no-cache \
     make -j "$(nproc)" && \
     find -type f -name '*.a' -delete && \
     make install && \
-    find /usr/local/bin /usr/local/sbin -type f -perm +0111 -exec strip --strip-all '{}' + || true && \
+    find /usr/bin /usr/sbin -type f -name 'php*' -perm +0111 -exec strip --strip-all '{}' + || true && \
     make clean && \
     mv php.ini-production $PHP_INI_DIR/php.ini && \
     rm -rf /tmp/* && \
@@ -109,4 +112,5 @@ RUN apk add --no-cache \
         .phpize-deps
 
 COPY etc/ /etc/php/
+COPY init/ /init/
 COPY s6/ /s6/php/
