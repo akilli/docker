@@ -9,6 +9,10 @@ RUN addgroup -g 1000 -S jenkins && \
     adduser -u 1000 -G jenkins -s /bin/ash -h /var/lib/jenkins -S -D jenkins && \
     mkdir -p \
         /usr/share/webapps/jenkins \
+        /var/cache/jenkins \
+        /var/lib/jenkins && \
+    chown -R jenkins:jenkins \
+        /var/cache/jenkins \
         /var/lib/jenkins && \
     apk add --no-cache \
         docker-cli \
