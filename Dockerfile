@@ -5,8 +5,8 @@ LABEL maintainer="Ayhan Akilli"
 ENV PGDATA=/var/lib/postgresql
 ENV PGPASS=app
 
-RUN addgroup -g 1000 -S postgres && \
-    adduser -u 1000 -G postgres -s /bin/ash -h /var/lib/postgresql -S -D postgres && \
+RUN addgroup -g 1000 postgres && \
+    adduser -u 1000 -G postgres -s /bin/ash -D postgres && \
     apk add --no-cache \
         postgresql \
         postgresql-contrib && \
