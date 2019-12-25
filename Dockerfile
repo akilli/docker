@@ -9,8 +9,8 @@ ARG LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie"
 ENV PHP_INI_DIR=/etc/php
 ENV PHP_VERSION=7.4.1
 
-RUN addgroup -g 1000 -S www-data && \
-    adduser -u 1000 -G www-data -s /bin/ash -h /srv -S -D www-data && \
+RUN addgroup -g 1000 www-data && \
+    adduser -u 1000 -G www-data -s /bin/ash -D www-data && \
     apk add --no-cache \
         argon2-libs \
         curl \
