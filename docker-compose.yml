@@ -3,4 +3,3 @@ services:
   node:
     image: akilli/node
     restart: unless-stopped
-    tty: true
