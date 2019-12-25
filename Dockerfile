@@ -5,8 +5,8 @@ LABEL maintainer="Ayhan Akilli"
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm
 ENV JENKINS_HOME=/var/lib/jenkins
 
-RUN addgroup -g 1000 -S jenkins && \
-    adduser -u 1000 -G jenkins -s /bin/ash -h /var/lib/jenkins -S -D jenkins && \
+RUN addgroup -g 1000 jenkins && \
+    adduser -u 1000 -G jenkins -s /bin/ash -D jenkins && \
     mkdir -p \
         /usr/share/webapps/jenkins \
         /var/cache/jenkins \
