@@ -2,8 +2,8 @@ FROM akilli/base
 
 LABEL maintainer="Ayhan Akilli"
 
-RUN addgroup -g 1000 -S www-data && \
-    adduser -u 1000 -G www-data -s /bin/ash -h /srv -S -D nginx && \
+RUN addgroup -g 1000 www-data && \
+    adduser -u 1000 -G www-data -s /bin/ash -D nginx && \
     apk add --no-cache \
         nginx \
         nginx-mod-http-geoip \
