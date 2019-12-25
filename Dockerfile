@@ -6,8 +6,8 @@ ENV GOGS_CUSTOM=/var/lib/gogs
 ENV GOGS_USER=gogs
 ENV USER=gogs
 
-RUN addgroup -g 1000 -S www-data && \
-    adduser -u 1000 -G www-data -s /bin/ash -h /var/lib/gogs -S -D gogs && \
+RUN addgroup -g 1000 www-data && \
+    adduser -u 1000 -G www-data -s /bin/ash -D gogs && \
     apk add --no-cache \
         gogs
 
