@@ -2,8 +2,8 @@ FROM akilli/base
 
 LABEL maintainer="Ayhan Akilli"
 
-RUN addgroup -g 1000 -S docker-registry && \
-    adduser -u 1000 -G docker-registry -s /bin/ash -h /var/lib/registry -S -D docker-registry && \
+RUN addgroup -g 1000 docker-registry && \
+    adduser -u 1000 -G docker-registry -s /bin/ash -D docker-registry && \
     apk add --no-cache \
         docker-registry
 
