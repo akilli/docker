@@ -17,7 +17,7 @@ RUN apk add --no-cache \
     mkdir -p \
         /init \
         /s6 && \
-    app-user-reset && \
+    app-user && \
     app-timezone "$TZ" && \
     app-locale
 
