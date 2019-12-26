@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -eux
+
+rm /etc/group- /etc/passwd- /etc/shadow- || true
+
+cat > /etc/passwd << EOF
+root:x:0:0:root:/root:/bin/sh
+EOF
+
+cat > /etc/group << EOF
+root:x:0:root
+EOF
+
+cat > /etc/shadow << EOF
+root:::0:::::
+EOF
+
+echo "SUCCESS: Reset passwd, group and shadow configuration"

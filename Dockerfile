@@ -18,6 +18,8 @@ RUN apk add --no-cache \
     mkdir -p \
         /init \
         /s6 && \
+    # user
+    app-user-reset && \
     # timezone
     app-timezone "$TZ" && \
     # locales
@@ -37,7 +39,6 @@ RUN apk add --no-cache \
     rm -rf /tmp/musl-locales && \
     apk del .locale-deps
 
-COPY etc/ /etc/
 COPY s6/ /s6/
 
 ENTRYPOINT ["app-entry"]
