@@ -8,5 +8,5 @@ services:
     ports:
       - "80:8080"
     volumes:
-      - data:/var/lib/jenkins
+      - data:/data
       - /var/run/docker.sock:/var/run/docker.sock:ro

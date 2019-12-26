@@ -1,5 +1,0 @@
-#!/bin/sh
-
-set -eux
-
-chown -R jenkins:jenkins /var/lib/jenkins
