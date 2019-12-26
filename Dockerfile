@@ -16,6 +16,7 @@ RUN addgroup -g 1000 www-data && \
         curl \
         freetype \
         icu-libs \
+        libbz2 \
         libedit \
         libjpeg-turbo \
         libldap \
@@ -41,6 +42,7 @@ RUN addgroup -g 1000 www-data && \
     # build
     apk add --no-cache --virtual .build-deps \
         argon2-dev \
+        bzip2-dev \
         coreutils \
         curl-dev \
         freetype-dev \
@@ -68,7 +70,6 @@ RUN addgroup -g 1000 www-data && \
     cd /tmp/php && \
     ./configure \
         --disable-cgi \
-        --disable-phar \
         --enable-fpm \
         --enable-ftp \
         --enable-gd \
@@ -80,6 +81,7 @@ RUN addgroup -g 1000 www-data && \
         --enable-soap \
         --prefix=/usr \
         --sysconfdir="$PHP_INI_DIR" \
+        --with-bz2 \
         --with-config-file-path="$PHP_INI_DIR" \
         --with-config-file-scan-dir="$PHP_INI_DIR/conf.d" \
         --with-curl \
