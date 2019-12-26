@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -eux
+
+if [ -z "$1" ]; then
+    echo "ERROR: No timezone passed"
+    exit 1
+fi
+
+apk add --no-cache --virtual .timezone-deps tzdata
+cp /usr/share/zoneinfo/$1 /etc/localtime
+echo "$1" > /etc/timezone
+echo "SUCCESS: Timezone changed to $1"
+rm -rf /etc/TZ || true
+apk del .timezone-deps

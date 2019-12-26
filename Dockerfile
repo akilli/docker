@@ -8,19 +8,18 @@ ARG TZ=Europe/Berlin
 ENV LANG=$LANG
 ENV MUSL_LOCPATH=/usr/share/i18n/locales/musl
 
+COPY bin/ /usr/local/bin/
+
 RUN apk add --no-cache \
         ca-certificates \
         s6 \
         su-exec && \
+    # directories
     mkdir -p \
         /init \
         /s6 && \
     # timezone
-    apk add --no-cache tzdata && \
-    cp /usr/share/zoneinfo/$TZ /etc/localtime && \
-    echo "$TZ" > /etc/timezone && \
-    rm -rf /etc/TZ && \
-    apk del tzdata && \
+    app-timezone "$TZ" && \
     # locales
     apk add --no-cache libintl && \
     apk add --no-cache --virtual .locale-deps \
@@ -40,7 +39,6 @@ RUN apk add --no-cache \
 
 COPY etc/ /etc/
 COPY s6/ /s6/
-COPY app-entry /usr/local/bin/app-entry
 
 ENTRYPOINT ["app-entry"]
 
