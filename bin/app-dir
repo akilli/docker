@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -eux
+
+mkdir -p /app /data /home/app /init /s6
+app-chown

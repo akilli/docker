@@ -14,13 +14,12 @@ RUN apk add --no-cache \
         ca-certificates \
         s6 \
         su-exec && \
-    mkdir -p \
-        /init \
-        /s6 && \
+    app-dir && \
     app-user && \
     app-timezone "$TZ" && \
     app-locale
 
+COPY init/ /init/
 COPY s6/ /s6/
 
 ENTRYPOINT ["app-entry"]
