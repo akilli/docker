@@ -8,7 +8,7 @@ storage:
   delete:
     enabled: true
   filesystem:
-    rootdirectory: /var/lib/registry
+    rootdirectory: /data
 http:
   addr: :5000
   headers:
