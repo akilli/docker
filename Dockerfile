@@ -106,7 +106,10 @@ RUN apk add --no-cache \
     find /usr/bin /usr/sbin -type f -name 'php*' -perm +0111 -exec strip --strip-all '{}' + || true && \
     make clean && \
     mv php.ini-production $PHP_INI_DIR/php.ini && \
-    rm -rf /tmp/* && \
+    rm -rf \
+        $PHP_INI_DIR/php-fpm.d/www.conf.default \
+        $PHP_INI_DIR/php-fpm.conf.default \
+        /tmp/* && \
     apk del \
         .build-deps \
         .phpize-deps
