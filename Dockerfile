@@ -7,7 +7,7 @@ ARG CPPFLAGS="$CFLAGS"
 ARG LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie"
 
 ENV PHP_INI_DIR=/etc/php
-ENV PHP_VERSION=7.4.2
+ENV PHP_VERSION=7.4.3
 
 RUN apk add --no-cache \
         argon2-libs \
