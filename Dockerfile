@@ -6,22 +6,21 @@ ARG LANG=de_DE.UTF-8
 ARG TZ=Europe/Berlin
 
 ENV LANG=$LANG
-ENV MUSL_LOCPATH=/usr/share/i18n/locales/musl
 
 COPY bin/ /usr/local/bin/
 
 RUN apk add --no-cache \
         ca-certificates \
+        musl-locales \
+        musl-locales-lang \
         s6 \
         su-exec && \
     app-dir && \
     app-user && \
-    app-timezone "$TZ" && \
-    app-locale
+    app-timezone "$TZ"
 
 COPY init/ /init/
 COPY s6/ /s6/
 
 ENTRYPOINT ["app-entry"]
-
 CMD []
