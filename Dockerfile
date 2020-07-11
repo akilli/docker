@@ -4,6 +4,7 @@ LABEL maintainer="Ayhan Akilli"
 ARG LANG=de_DE.UTF-8
 ARG TZ=Europe/Berlin
 ENV LANG=$LANG
+ENV MUSL_LOCPATH=/usr/share/i18n/locales/musl
 
 COPY bin/ /usr/local/bin/
 RUN apk add --no-cache \
