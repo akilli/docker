@@ -1,114 +1,51 @@
 FROM akilli/base
 LABEL maintainer="Ayhan Akilli"
 
-ARG CFLAGS="-fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64"
-ARG CPPFLAGS="$CFLAGS"
-ARG LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie"
-ARG TAR=https://www.php.net/get/php-7.4.8.tar.xz/from/this/mirror
-
 RUN apk add --no-cache \
-        argon2-libs \
-        curl \
-        freetype \
-        icu-libs \
-        libbz2 \
-        libedit \
-        libjpeg-turbo \
-        libldap \
-        libpng \
-        libpq \
-        libsodium \
-        libwebp \
-        libxml2 \
-        libxslt \
-        libzip \
-        oniguruma \
-        openssl \
-        sqlite-libs \
-        tar \
-        xz && \
-    # phpize
-    apk add --no-cache --virtual .phpize-deps \
-        autoconf \
-        build-base \
-        dpkg \
-        dpkg-dev \
-        re2c && \
-    # build
-    apk add --no-cache --virtual .build-deps \
-        argon2-dev \
-        bzip2-dev \
-        coreutils \
-        curl-dev \
-        freetype-dev \
-        icu-dev \
-        libedit-dev \
-        libjpeg-turbo-dev \
-        libpng-dev \
-        libsodium-dev \
-        libxml2-dev \
-        libxslt-dev \
-        libzip-dev \
-        libwebp-dev \
-        linux-headers \
-        oniguruma-dev \
-        openldap-dev \
-        openssl-dev \
-        postgresql-dev \
-        sqlite-dev && \
-    cd /tmp && \
-    wget -O php.tar.xz $TAR && \
-    mkdir -p \
-        /etc/php/conf.d \
-        /tmp/php && \
-    tar -Jxf php.tar.xz -C /tmp/php --strip-components=1 && \
-    cd /tmp/php && \
-    ./configure \
-        --disable-cgi \
-        --enable-fpm \
-        --enable-ftp \
-        --enable-gd \
-        --enable-intl \
-        --enable-opcache \
-        --enable-option-checking=fatal \
-        --enable-mbstring \
-        --enable-mysqlnd \
-        --enable-soap \
-        --prefix=/usr \
-        --sysconfdir=/etc/php \
-        --with-bz2 \
-        --with-config-file-path=/etc/php \
-        --with-config-file-scan-dir=/etc/php/conf.d \
-        --with-curl \
-        --with-freetype \
-        --with-jpeg \
-        --with-ldap \
-        --with-ldap-sasl \
-        --with-libedit \
-        --with-openssl \
-        --with-password-argon2 \
-        --with-pdo-mysql \
-        --with-pdo-pgsql \
-        --with-pdo-sqlite \
-        --with-pgsql \
-        --with-sodium=shared \
-        --with-sqlite3 \
-        --with-xsl \
-        --with-webp \
-        --with-zip \
-        --with-zlib && \
-    make -j "$(nproc)" && \
-    find -type f -name '*.a' -delete && \
-    make install && \
-    find /usr/bin /usr/sbin -type f -name 'php*' -perm +0111 -exec strip --strip-all '{}' + || true && \
-    make clean && \
-    mv php.ini-production /etc/php/php.ini && \
-    rm -rf \
-        /etc/php/php-fpm.d/www.conf.default \
-        /etc/php/php-fpm.conf.default \
-        /tmp/* && \
-    apk del \
-        .build-deps \
-        .phpize-deps
-COPY etc/ /etc/php/
+        php7 \
+        php7-bz2 \
+        php7-ctype \
+        php7-curl \
+        php7-dom \
+        php7-fileinfo \
+        php7-fpm \
+        php7-ftp \
+        php7-gd \
+        php7-iconv \
+        php7-intl \
+        php7-json \
+        php7-ldap \
+        php7-mbstring \
+        php7-mysqlnd \
+        php7-opcache \
+        php7-openssl \
+        php7-pdo \
+        php7-pdo_mysql \
+        php7-pdo_pgsql \
+        php7-pdo_sqlite \
+        php7-pgsql \
+        php7-phar \
+        php7-posix \
+        php7-session \
+        php7-simplexml \
+        php7-soap \
+        php7-sockets \
+        php7-sodium \
+        php7-sqlite3 \
+        php7-tokenizer \
+        php7-xml \
+        php7-xmlreader \
+        php7-xmlwriter \
+        php7-xsl \
+        php7-zip && \
+    ln -s php7 /etc/php && \
+    ln -s php-fpm7 /usr/sbin/php-fpm && \
+    rm -f \
+        /etc/php/php-fpm.d/www.conf \
+        /etc/php/php-fpm.conf && \
+    app-user && \
+    app-chown
+COPY etc/conf.d/php.ini /etc/php/conf.d/99_php.ini
+COPY etc/php-fpm.d/ /etc/php/php-fpm.d/
+COPY etc/php-fpm.conf /etc/php/php-fpm.conf
 COPY s6/ /s6/php/
