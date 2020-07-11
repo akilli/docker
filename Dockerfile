@@ -1,5 +1,4 @@
 FROM akilli/base
-
 LABEL maintainer="Ayhan Akilli"
 
 ENV PGDATA=/data
@@ -15,6 +14,5 @@ RUN apk add --no-cache \
     chown -R app:app /run/postgresql && \
     app-user && \
     app-chown
-
 COPY init/ /init/
 COPY s6/ /s6/postgres/
