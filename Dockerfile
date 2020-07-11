@@ -5,9 +5,9 @@ LABEL maintainer="Ayhan Akilli"
 ARG CFLAGS="-fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64"
 ARG CPPFLAGS="$CFLAGS"
 ARG LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie"
+ARG PHP_VERSION=7.4.8
 
-ENV PHP_INI_DIR=/etc/php
-ENV PHP_VERSION=7.4.8
+ENV PHP_VERSION=$PHP_VERSION
 
 RUN apk add --no-cache \
         argon2-libs \
@@ -62,7 +62,7 @@ RUN apk add --no-cache \
     cd /tmp && \
     wget -O php.tar.xz https://www.php.net/get/php-${PHP_VERSION}.tar.xz/from/this/mirror && \
     mkdir -p \
-        $PHP_INI_DIR/conf.d \
+        /etc/php/conf.d \
         /tmp/php && \
     tar -Jxf php.tar.xz -C /tmp/php --strip-components=1 && \
     cd /tmp/php && \
@@ -78,10 +78,10 @@ RUN apk add --no-cache \
         --enable-mysqlnd \
         --enable-soap \
         --prefix=/usr \
-        --sysconfdir="$PHP_INI_DIR" \
+        --sysconfdir=/etc/php \
         --with-bz2 \
-        --with-config-file-path="$PHP_INI_DIR" \
-        --with-config-file-scan-dir="$PHP_INI_DIR/conf.d" \
+        --with-config-file-path=/etc/php \
+        --with-config-file-scan-dir=/etc/php/conf.d \
         --with-curl \
         --with-freetype \
         --with-jpeg \
@@ -105,10 +105,10 @@ RUN apk add --no-cache \
     make install && \
     find /usr/bin /usr/sbin -type f -name 'php*' -perm +0111 -exec strip --strip-all '{}' + || true && \
     make clean && \
-    mv php.ini-production $PHP_INI_DIR/php.ini && \
+    mv php.ini-production /etc/php/php.ini && \
     rm -rf \
-        $PHP_INI_DIR/php-fpm.d/www.conf.default \
-        $PHP_INI_DIR/php-fpm.conf.default \
+        /etc/php/php-fpm.d/www.conf.default \
+        /etc/php/php-fpm.conf.default \
         /tmp/* && \
     apk del \
         .build-deps \
