@@ -1,5 +1,4 @@
 FROM akilli/base
-
 LABEL maintainer="Ayhan Akilli"
 
 ENV GOGS_CUSTOM=/data
@@ -11,6 +10,5 @@ RUN apk add --no-cache \
     rm -rf /var/lib/gogs && \
     app-user && \
     app-chown
-
 COPY s6/ /s6/gogs/
 COPY app.ini /data/conf/app.ini
