@@ -1,6 +1,6 @@
 # `akilli/php`
 
-`akilli/base` based PHP 7.4 image. 
+`akilli/base` based PHP 7.4 (`latest`) or 8.0 (`next`) image. 
 
 OPcache is pre-configured for production, amongst others, with
 
