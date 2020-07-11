@@ -1,0 +1,4 @@
+#!/bin/bash
+
+docker build -f ${DOCKERFILE_PATH} -t ${DOCKER_REPO} .
+docker build --build-arg TAR=https://downloads.php.net/~carusogabriel/php-8.0.0alpha2.tar.xz -f ${DOCKERFILE_PATH} -t ${DOCKER_REPO}:next .
