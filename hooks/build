@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $DOCKER_TAG == "next" ]; then
+if [ "$DOCKER_TAG" == "next" ]; then
     docker build --build-arg TAR=https://downloads.php.net/~carusogabriel/php-8.0.0alpha2.tar.xz -f ${DOCKERFILE_PATH} -t ${IMAGE_NAME} .
 else
     docker build -f ${DOCKERFILE_PATH} -t ${IMAGE_NAME} .
