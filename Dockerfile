@@ -1,12 +1,10 @@
 FROM akilli/base
-
 LABEL maintainer="Ayhan Akilli"
 
 ARG CFLAGS="-fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64"
 ARG CPPFLAGS="$CFLAGS"
 ARG LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie"
 ARG PHP_VERSION=7.4.8
-
 ENV PHP_VERSION=$PHP_VERSION
 
 RUN apk add --no-cache \
@@ -113,6 +111,5 @@ RUN apk add --no-cache \
     apk del \
         .build-deps \
         .phpize-deps
-
 COPY etc/ /etc/php/
 COPY s6/ /s6/php/
