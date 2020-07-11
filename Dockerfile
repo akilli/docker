@@ -4,8 +4,7 @@ LABEL maintainer="Ayhan Akilli"
 ARG CFLAGS="-fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64"
 ARG CPPFLAGS="$CFLAGS"
 ARG LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie"
-ARG PHP_VERSION=7.4.8
-ENV PHP_VERSION=$PHP_VERSION
+ARG TAR=https://www.php.net/get/php-7.4.8.tar.xz/from/this/mirror
 
 RUN apk add --no-cache \
         argon2-libs \
@@ -58,7 +57,7 @@ RUN apk add --no-cache \
         postgresql-dev \
         sqlite-dev && \
     cd /tmp && \
-    wget -O php.tar.xz https://www.php.net/get/php-${PHP_VERSION}.tar.xz/from/this/mirror && \
+    wget -O php.tar.xz $TAR && \
     mkdir -p \
         /etc/php/conf.d \
         /tmp/php && \
