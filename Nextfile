@@ -4,7 +4,7 @@ LABEL maintainer="Ayhan Akilli"
 ARG CFLAGS="-fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64"
 ARG CPPFLAGS="$CFLAGS"
 ARG LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie"
-ARG TAR=https://downloads.php.net/~carusogabriel/php-8.0.0alpha3.tar.xz
+ARG TAR=https://downloads.php.net/~carusogabriel/php-8.0.0beta1.tar.xz
 
 RUN apk add --no-cache \
         argon2-libs \
