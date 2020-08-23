@@ -1,5 +1,0 @@
-#!/bin/sh
-
-set -eux
-
-su-exec app docker-registry serve /etc/docker-registry/config.yml
