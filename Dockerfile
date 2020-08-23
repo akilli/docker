@@ -48,4 +48,5 @@ RUN apk add --no-cache \
 COPY etc/conf.d/php.ini /etc/php/conf.d/99_php.ini
 COPY etc/php-fpm.d/ /etc/php/php-fpm.d/
 COPY etc/php-fpm.conf /etc/php/php-fpm.conf
-COPY s6/ /s6/php/
+
+CMD ["php-fpm"]
