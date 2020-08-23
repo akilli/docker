@@ -45,8 +45,6 @@ RUN apk add --no-cache \
         /etc/php/php-fpm.conf && \
     app-user && \
     app-chown
-COPY etc/conf.d/php.ini /etc/php/conf.d/99_php.ini
-COPY etc/php-fpm.d/ /etc/php/php-fpm.d/
-COPY etc/php-fpm.conf /etc/php/php-fpm.conf
+COPY etc/ /etc/php/
 
 CMD ["php-fpm"]
