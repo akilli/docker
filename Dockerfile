@@ -10,5 +10,6 @@ RUN apk add --no-cache \
     rm -rf /var/lib/gogs && \
     app-user && \
     app-chown
-COPY s6/ /s6/gogs/
 COPY app.ini /data/conf/app.ini
+
+CMD ["su-exec", "app", "gogs", "web"]
