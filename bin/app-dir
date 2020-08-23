@@ -2,5 +2,5 @@
 
 set -eux
 
-mkdir -p /app /data /home/app /init /s6
+mkdir -p /app /data /home/app /init
 app-chown

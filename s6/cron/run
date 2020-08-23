@@ -1,5 +1,0 @@
-#!/bin/sh
-
-set -eux
-
-exec crond -f -L /dev/stdout

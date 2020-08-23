@@ -11,13 +11,11 @@ RUN apk add --no-cache \
         ca-certificates \
         musl-locales \
         musl-locales-lang \
-        s6 \
         su-exec && \
     app-dir && \
     app-user && \
     app-timezone "$TZ"
 COPY init/ /init/
-COPY s6/ /s6/
 
 ENTRYPOINT ["app-entry"]
-CMD []
+CMD ["su-exec", "app", "sh"]
