@@ -15,4 +15,5 @@ RUN apk add --no-cache \
     app-user && \
     app-chown
 COPY init/ /init/
-COPY s6/ /s6/postgres/
+
+CMD ["su-exec", "app", "postgres"]
