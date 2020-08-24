@@ -1,6 +1,6 @@
 # `akilli/php`
 
-`akilli/base` based PHP 7.4 (`latest`) or 8.0 (`next`) image. 
+[akilli/base](https://github.com/akilli/base) based PHP 7.4 (`latest`) or 8.0 (`next`) image. 
 
 OPcache is pre-configured for production, amongst others, with
 
@@ -17,4 +17,4 @@ For development, some of these settings are surely not suitable, so you likely w
 - use different fpm pools or
 - do something completely different.
 
-You can use the example docker-compose.yml and docker-compose.override.yml as a starting point for your configuration.
+You can use the example [docker-compose.yml](docker-compose.yml) and docker-compose.override.yml as a starting point for your configuration.
