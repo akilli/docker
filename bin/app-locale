@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -euxo pipefail
+
+if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "USAGE: app-locale LANGUAGE LANG"
+    exit 1
+fi
+
+app-install locales
+localedef -i $1 -c -f UTF-8 -A /usr/share/locale/locale.alias $2

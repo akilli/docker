@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 
-set -eux
+set -euxo pipefail
 
 chown -R app:app /app /data /home/app /opt /var/log || true
