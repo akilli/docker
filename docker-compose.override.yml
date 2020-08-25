@@ -2,4 +2,4 @@ version: "3.8"
 services:
   php:
     volumes:
-      - ./php.dev.ini:/etc/php/conf.d/zzz.ini
+      - ./php.dev.ini:/etc/php/7.4/fpm/conf.d/99-zzz.ini

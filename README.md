@@ -1,6 +1,6 @@
 # `akilli/php`
 
-[akilli/base](https://github.com/akilli/base) based PHP 7.4 (`latest`) or 8.0 (`next`) image. 
+[akilli/base](https://github.com/akilli/base) based PHP 7.4 image. 
 
 OPcache is pre-configured for production, amongst others, with
 
@@ -12,7 +12,7 @@ So if you use these default settings, you must provide a preload script at `/app
 
 For development, some of these settings are surely not suitable, so you likely want to change them. There are several possibilities to adjust these default settings. You could p.e. 
 
-- mount a custom ini file at `/etc/php/conf.d/zzz.ini`,
+- mount a custom ini file at `/etc/php/7.4/fpm/conf.d/99-zzz.ini`,
 - use a user ini file `.user.ini` for certain settings,
 - use different fpm pools or
 - do something completely different.
