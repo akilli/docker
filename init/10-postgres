@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-set -eux
+set -euxo pipefail
 
 if [ -z "$(ls -A /data)" ]; then
     su-exec app initdb -E UTF8 -U app
