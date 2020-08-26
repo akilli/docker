@@ -9,9 +9,9 @@ ARG GO=https://golang.org/dl/go1.15.linux-amd64.tar.gz
 
 RUN app-install \
         build-essential \
-        git \
-        wget && \
-    wget -O /tmp/go.tar.gz $GO && \
+        curl \
+        git && \
+    curl -fsSL -o /tmp/go.tar.gz $GO && \
     tar -C /usr/local/src -xzf /tmp/go.tar.gz && \
     ln -s /usr/local/src/go/bin/go /usr/local/bin/go && \
     git clone --depth 1 $GOGS /usr/local/src/gogs && \
