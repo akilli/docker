@@ -26,14 +26,18 @@ ARG LANGUAGE=de_DE
 ARG TZ=Europe/Berlin
 ENV LANG=$LANG
 ENV LANGUAGE=$LANGUAGE
+ENV TZ=$TZ
 
 COPY --from=build /tmp/su-exec/su-exec /usr/local/bin/su-exec
 COPY bin/ /usr/local/bin/
-RUN app-locale "$LANGUAGE" "$LANG" && \
-    app-timezone "$TZ" && \
+RUN app-install \
+        ca-certificates \
+        locales \
+        tzdata && \
+    localedef -i $LANGUAGE -c -f UTF-8 -A /usr/share/locale/locale.alias $LANG && \
+    app-timezone && \
     app-user && \
     app-dir && \
-    app-install ca-certificates && \
     app-clean
 COPY init/ /init/
 

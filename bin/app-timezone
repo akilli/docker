@@ -2,13 +2,11 @@
 
 set -euxo pipefail
 
-if [ -z "$1" ]; then
-    echo "USAGE: app-timezone TIMEZONE"
+if [ -z "$TZ" ]; then
+    echo "Error: TZ environment variable not set"
     exit 1
 fi
 
-app-install tzdata
 unlink /etc/localtime || true
-cp /usr/share/zoneinfo/$1 /etc/localtime
-echo "$1" > /etc/timezone
-app-remove tzdata
+ln -s /usr/share/zoneinfo/$TZ /etc/localtime
+echo "$TZ" > /etc/timezone
