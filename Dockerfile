@@ -3,6 +3,7 @@ LABEL maintainer="Ayhan Akilli"
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG KEY=14AA40EC0831756756D7F66C4F4EA0AAE5267A6C
+ENV XDEBUG_ENABLED=0
 
 RUN app-install gnupg2 && \
     echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu focal main" > /etc/apt/sources.list.d/php.list && \
@@ -27,13 +28,17 @@ RUN app-install gnupg2 && \
         php7.4-sqlite3 \
         php7.4-xml \
         php7.4-xsl \
-        php7.4-zip && \
+        php7.4-zip \
+        php-xdebug && \
     rm -f \
+        /etc/php/7.4/cli/conf.d/20-xdebug.ini \
+        /etc/php/7.4/fpm/conf.d/20-xdebug.ini \
         /etc/php/7.4/fpm/php-fpm.conf \
         /etc/php/7.4/fpm/pool.d/www.conf && \
     ln -s ../../mods-available/php.ini /etc/php/7.4/cli/conf.d/90-php.ini && \
     ln -s ../../mods-available/php.ini /etc/php/7.4/fpm/conf.d/90-php.ini && \
     app-clean
+COPY 10-xdebug /init/10-xdebug
 COPY php-fpm.conf /etc/php/7.4/fpm/php-fpm.conf
 COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
 COPY php.ini /etc/php/7.4/mods-available/php.ini

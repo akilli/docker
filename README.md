@@ -14,7 +14,7 @@ This custom configuration file is pre-configured for production, amongst others,
 - `opcache.revalidate_freq = 0` and
 - strict sessions.
 
-If you use these default settings, you must provide a preload script at `/app/preload.php` and be aware of the fact that changes in PHP scripts will only have effect after restarting the server which is perfect for containerized production environment. 
+If you use these default settings, you must provide a preload script at `/app/preload.php` and be aware of the fact that changes in PHP scripts will only have effect after restarting the server which is perfect for containerized production environment. The `php-xdebug` package is installed, but not enabled.
 
 For development, some of these settings are surely not suitable, so you likely want to change them. There are several possibilities to adjust these default settings. You could p.e. 
 
@@ -23,5 +23,7 @@ For development, some of these settings are surely not suitable, so you likely w
 - use a user ini file `.user.ini` for certain settings,
 - use different fpm pools or
 - do something completely different.
+
+To enable xdebug for development set environment variable `XDEBUG_ENABLED=1`.
 
 You can use the example [docker-compose.yml](docker-compose.yml) and [docker-compose.override.yml](docker-compose.override.yml) as a starting point for your configuration.

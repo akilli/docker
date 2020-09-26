@@ -1,5 +1,7 @@
 version: "3.8"
 services:
   php:
+    environment:
+      - XDEBUG_ENABLED=1
     volumes:
       - ./php.dev.ini:/etc/php/7.4/fpm/conf.d/99-zzz.ini
