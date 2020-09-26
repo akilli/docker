@@ -1,8 +1,8 @@
 # `akilli/base`
 
-Base image built from `ubuntu:focal` with 
+Base image built from `alpine:edge` with 
 
-- `ca-certificates` and `su-exec` pre-installed, 
+- `ca-certificates`, `musl-locales`, `su-exec` and `tzdata` pre-installed, 
 - an user and group `app` with UID and GID _1000_,
 - configured locale (default: `de_DE.UTF-8`), 
 - configured timezone (default: `Europe/Berlin`) and a helper script `app-timezone` to change it, 

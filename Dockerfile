@@ -1,45 +1,21 @@
-#
-# Build image
-#
-FROM ubuntu:focal AS build
-
-ARG DEBIAN_FRONTEND=noninteractive
-
-COPY bin/ /usr/local/bin/
-RUN app-install \
-        build-essential \
-        ca-certificates \
-        git && \
-    git clone https://github.com/ncopa/su-exec.git /tmp/su-exec && \
-    cd /tmp/su-exec && \
-    make
-
-#
-# Final image
-#
-FROM ubuntu:focal
+FROM alpine:edge
 LABEL maintainer="Ayhan Akilli"
 
-ARG DEBIAN_FRONTEND=noninteractive
-ARG LANG=de_DE.UTF-8
-ARG LANGUAGE=de_DE
-ARG TZ=Europe/Berlin
-ENV LANG=$LANG
-ENV LANGUAGE=$LANGUAGE
-ENV TZ=$TZ
+ENV LANG=de_DE.UTF-8
+ENV TZ=Europe/Berlin
 
-COPY --from=build /tmp/su-exec/su-exec /usr/local/bin/su-exec
 COPY bin/ /usr/local/bin/
-RUN app-install \
+RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
+    apk add --no-cache \
         ca-certificates \
-        locales \
+        musl-locales \
+        musl-locales-lang \
+        su-exec \
         tzdata && \
-    localedef -i $LANGUAGE -c -f UTF-8 -A /usr/share/locale/locale.alias $LANG && \
-    app-timezone && \
-    app-user && \
     app-dir && \
-    app-clean
+    app-user && \
+    app-timezone
 COPY init/ /init/
 
 ENTRYPOINT ["app-entry"]
-CMD ["su-exec", "app", "bash"]
+CMD ["su-exec", "app", "sh"]

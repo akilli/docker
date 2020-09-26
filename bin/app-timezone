@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-set -euxo pipefail
+set -eux
 
 if [ -z "$TZ" ]; then
     echo "Error: TZ environment variable not set"
@@ -8,5 +8,5 @@ if [ -z "$TZ" ]; then
 fi
 
 unlink /etc/localtime || true
-ln -s /usr/share/zoneinfo/$TZ /etc/localtime
+ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
 echo "$TZ" > /etc/timezone

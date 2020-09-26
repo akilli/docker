@@ -1,16 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
-set -euxo pipefail
+set -eux
 
 rm /etc/group- /etc/passwd- /etc/shadow- || true
-echo "root:x:0:0:root:/root:/bin/bash" > /etc/passwd
-echo "app:x:1000:1000:app:/home/app:/bin/bash" >> /etc/passwd
-echo "_apt:x:100:65534::/nonexistent:/usr/sbin/nologin" >> /etc/passwd
+echo "root:x:0:0:root:/root:/bin/sh" > /etc/passwd
+echo "app:x:1000:1000:app:/home/app:/bin/sh" >> /etc/passwd
 echo "root:x:0:root" > /etc/group
-echo "adm:x:4:" >> /etc/group
-echo "staff:x:50:" >> /etc/group
 echo "app:x:1000:app" >> /etc/group
-echo "nogroup:x:65534:" >> /etc/group
 echo "root:::0:::::" > /etc/shadow
 echo "app:!::0:::::" >> /etc/shadow
-echo "_apt:!:18472:0:99999:7:::" >> /etc/shadow
