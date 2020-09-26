@@ -3,6 +3,7 @@ LABEL maintainer="Ayhan Akilli"
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG KEY=14AA40EC0831756756D7F66C4F4EA0AAE5267A6C
+ENV DEV=0
 ENV XDEBUG_ENABLED=0
 
 RUN app-install gnupg2 && \
@@ -38,9 +39,9 @@ RUN app-install gnupg2 && \
     ln -s ../../mods-available/php.ini /etc/php/7.4/cli/conf.d/90-php.ini && \
     ln -s ../../mods-available/php.ini /etc/php/7.4/fpm/conf.d/90-php.ini && \
     app-clean
-COPY 10-xdebug /init/10-xdebug
+COPY init/ /init/
+COPY mods-available/ /etc/php/7.4/mods-available/
 COPY php-fpm.conf /etc/php/7.4/fpm/php-fpm.conf
 COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
-COPY php.ini /etc/php/7.4/mods-available/php.ini
 
 CMD ["php-fpm7.4"]

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -euxo pipefail
+
+if [ "${DEV}" = "1" ]; then
+    ln -s ../../mods-available/xdebug.ini /etc/php/7.4/cli/conf.d/20-xdebug.ini
+    ln -s ../../mods-available/xdebug.ini /etc/php/7.4/fpm/conf.d/20-xdebug.ini
+    ln -s ../../mods-available/dev.ini /etc/php/7.4/cli/conf.d/99-dev.ini
+    ln -s ../../mods-available/dev.ini /etc/php/7.4/fpm/conf.d/99-dev.ini
+else
+    rm -f \
+        /etc/php/7.4/cli/conf.d/20-xdebug.ini \
+        /etc/php/7.4/fpm/conf.d/20-xdebug.ini \
+        /etc/php/7.4/cli/conf.d/99-dev.ini \
+        /etc/php/7.4/fpm/conf.d/99-dev.ini \
+        || true
+fi
