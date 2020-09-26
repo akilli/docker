@@ -2,6 +2,7 @@ FROM alpine:edge
 LABEL maintainer="Ayhan Akilli"
 
 ENV LANG=de_DE.UTF-8
+ENV MUSL_LOCPATH=/usr/share/i18n/locales/musl
 ENV TZ=Europe/Berlin
 
 COPY bin/ /usr/local/bin/
