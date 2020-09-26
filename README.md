@@ -16,7 +16,7 @@ This custom configuration file is pre-configured for production, amongst others,
 
 If you use these default settings, you must provide a preload script at `/app/preload.php` and be aware of the fact that changes in PHP scripts will only have effect after restarting the server which is perfect for containerized production environment. xdebug is installed, but disabled.
 
-Some of these settings are surely not suitable for development. If you set the environment variable `DEV=1`, the [init/10-php](init/10-php) script will enable the xdebug extension and also the [mods-available/dev.ini](mods-available/dev.ini) configuration file, that will p.e. effectively disable opcache and auto-prepend the preload script at `/app/preload.php` instead.
+Some of these settings are surely not suitable for development. If you set the environment variable `DEV=1`, the [init/10-php](init/10-php) script will enable the xdebug extension and also the [mods-available/dev.ini](mods-available/dev.ini) configuration file, that will effectively disable the `session.cookie_secure` restriction and opcache and also auto-prepend the preload script at `/app/preload.php` instead.
 
 Apart from that, there are several possibilities to adjust these default settings. You could p.e. 
 
