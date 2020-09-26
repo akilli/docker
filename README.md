@@ -1,6 +1,6 @@
 # `akilli/nginx`
 
-[akilli/base](https://github.com/akilli/base) based nginx mainline image with geoip and image-filter modules.
+[akilli/base](https://github.com/akilli/base) based nginx image with geoip and image-filter modules.
 
 `/etc/nginx/nginx.conf` is configured with `include /app/nginx.conf;`, so you have to provide this file. Some useful snippets for `ssl`, `http2` and `php-fpm` configuration are added to the `/etc/nginx/snippets` directory.
 
