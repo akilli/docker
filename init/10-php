@@ -3,7 +3,7 @@
 set -eux
 
 if [ "${DEV}" = "1" ]; then
-    ln -s 99_dev.ini.disabled /etc/php/conf.d/99_dev.ini
+    ln -sf 99_dev.ini.disabled /etc/php/conf.d/99_dev.ini
 else
     rm /etc/php/conf.d/99_dev.ini || true
 fi
