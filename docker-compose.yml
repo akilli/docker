@@ -1,0 +1,6 @@
+version: "3.8"
+services:
+  go:
+    image: akilli/go
+    restart: unless-stopped
+    tty: true
