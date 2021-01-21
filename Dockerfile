@@ -9,12 +9,13 @@ COPY bin/ /usr/local/bin/
 RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
     apk add --no-cache \
         ca-certificates \
+        musl-locales \
+        musl-locales-lang \
         su-exec \
         tzdata && \
     app-dir && \
     app-user && \
-    app-timezone && \
-    app-locale
+    app-timezone
 COPY init/ /init/
 
 ENTRYPOINT ["app-entry"]
