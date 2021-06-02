@@ -6,7 +6,7 @@ RUN apk add --no-cache \
         nginx-mod-http-geoip \
         nginx-mod-http-image-filter \
         openssl && \
-    rm /etc/nginx/conf.d/default.conf && \
+    rm /etc/nginx/conf.d/default.conf || true && \
     chown -R app:app /var/lib/nginx && \
     app-user && \
     app-chown && \
