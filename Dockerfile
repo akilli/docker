@@ -10,7 +10,7 @@ RUN apk add --no-cache \
         docker-cli \
         docker-compose \
         git \
-        openjdk8-jre \
+        openjdk11-jre \
         sudo \
         ttf-dejavu && \
     echo 'app ALL = NOPASSWD: /usr/bin/docker, /usr/bin/docker-compose' >> /etc/sudoers && \
