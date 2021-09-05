@@ -4,45 +4,45 @@ LABEL maintainer="Ayhan Akilli"
 ENV DEV=0
 
 RUN apk add --no-cache \
-        php8 \
-        php8-bz2 \
-        php8-ctype \
-        php8-curl \
-        php8-dom \
-        php8-fileinfo \
-        php8-fpm \
-        php8-ftp \
-        php8-gd \
-        php8-iconv \
-        php8-intl \
-        php8-json \
-        php8-ldap \
-        php8-mbstring \
-        php8-mysqlnd \
-        php8-opcache \
-        php8-openssl \
-        php8-pdo \
-        php8-pdo_mysql \
-        php8-pdo_pgsql \
-        php8-pdo_sqlite \
-        php8-pgsql \
-        php8-phar \
-        php8-posix \
-        php8-session \
-        php8-simplexml \
-        php8-soap \
-        php8-sockets \
-        php8-sodium \
-        php8-sqlite3 \
-        php8-tokenizer \
-        php8-xml \
-        php8-xmlreader \
-        php8-xmlwriter \
-        php8-xsl \
-        php8-zip && \
-    ln -s php8 /etc/php && \
-    ln -s php8 /usr/bin/php && \
-    ln -s php-fpm8 /usr/sbin/php-fpm && \
+        php81 \
+        php81-bz2 \
+        php81-ctype \
+        php81-curl \
+        php81-dom \
+        php81-fileinfo \
+        php81-fpm \
+        php81-ftp \
+        php81-gd \
+        php81-iconv \
+        php81-intl \
+        php81-json \
+        php81-ldap \
+        php81-mbstring \
+        php81-mysqlnd \
+        php81-opcache \
+        php81-openssl \
+        php81-pdo \
+        php81-pdo_mysql \
+        php81-pdo_pgsql \
+        php81-pdo_sqlite \
+        php81-pgsql \
+        php81-phar \
+        php81-posix \
+        php81-session \
+        php81-simplexml \
+        php81-soap \
+        php81-sockets \
+        php81-sodium \
+        php81-sqlite3 \
+        php81-tokenizer \
+        php81-xml \
+        php81-xmlreader \
+        php81-xmlwriter \
+        php81-xsl \
+        php81-zip && \
+    ln -s php81 /etc/php && \
+    ln -s php81 /usr/bin/php && \
+    ln -s php-fpm81 /usr/sbin/php-fpm && \
     rm -f \
         /etc/php/php-fpm.d/www.conf \
         /etc/php/php-fpm.conf && \
