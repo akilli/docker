@@ -22,4 +22,4 @@ Apart from that, there are several possibilities to adjust these default setting
 - use different fpm pools or
 - do something completely different.
 
-You can use the example [docker-compose.yml](docker-compose.yml) and [docker-compose.override.yml](docker-compose.override.yml) as a starting point for your configuration.
+You can use the example [compose.yml](compose.yml) and [compose.override.yml](compose.override.yml) as a starting point for your configuration.
