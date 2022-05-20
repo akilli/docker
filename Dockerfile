@@ -8,11 +8,13 @@ ENV JENKINS_USER=app
 
 RUN apk add --no-cache \
         docker-cli \
-        docker-compose \
+        docker-cli-buildx \
+        docker-cli-compose \
         git \
         openjdk11-jre \
         sudo \
         ttf-dejavu && \
+    ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/bin/docker-compose && \
     echo 'app ALL = NOPASSWD: /usr/bin/docker, /usr/bin/docker-compose' >> /etc/sudoers && \
     mkdir -p \
         /usr/share/webapps/jenkins \
