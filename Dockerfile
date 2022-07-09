@@ -4,6 +4,7 @@ LABEL maintainer="Ayhan Akilli"
 ENV DEV=0
 
 RUN apk add --no-cache \
+        icu-data-full \
         php81 \
         php81-bz2 \
         php81-ctype \
