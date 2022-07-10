@@ -6,7 +6,9 @@ ENV GOGS_USER=app
 ENV USER=app
 
 RUN apk add --no-cache gogs && \
-    rm -rf /var/lib/gogs && \
+    rm -rf \
+        /etc/gogs \
+        /var/lib/gogs && \
     app-user && \
     app-chown
 COPY app.ini /data/conf/app.ini
