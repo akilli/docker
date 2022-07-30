@@ -42,7 +42,6 @@ RUN apk add --no-cache \
         php81-xsl \
         php81-zip && \
     ln -s php81 /etc/php && \
-    ln -s php81 /usr/bin/php && \
     ln -s php-fpm81 /usr/sbin/php-fpm && \
     rm -f \
         /etc/php/php-fpm.d/www.conf \
