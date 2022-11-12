@@ -13,7 +13,7 @@ on:
       context:
         type: string
         required: false
-        default: "{{defaultContext}}"
+        default: .
     secrets:
       DOCKERHUB_USERNAME:
         required: true
@@ -33,13 +33,13 @@ jobs:
         with:
           load: true
           tags: ${{ inputs.image }}:${{ inputs.tag }}
-          context: ${{ inputs.context }}
-      - name: test
+          context: {{defaultContext}}:${{ inputs.context }}
+      - name: test run
         run: |
-          docker run --rm --entrypoint /bin/sh ${{ inputs.image }}:${{ inputs.tag }} --help
+          docker run --rm --entrypoint ls ${{ inputs.image }}:${{ inputs.tag }} -al
       - name: build & push
         uses: docker/build-push-action@v3
         with:
           push: true
           tags: ${{ inputs.image }}:${{ inputs.tag }}
-          context: ${{ inputs.context }}
+          context: {{defaultContext}}:${{ inputs.context }}
