@@ -23,7 +23,10 @@ jobs:
       registry: ${{ steps.filter.outputs.registry }}
       traefik: ${{ steps.filter.outputs.traefik }}
     steps:
-      - uses: dorny/paths-filter@v2
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: detech changes
+        uses: dorny/paths-filter@v2
         id: filter
         with:
           filters: |
