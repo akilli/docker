@@ -1,0 +1,6 @@
+services:
+  traefik:
+    image: akilli/traefik
+    restart: unless-stopped
+    ports:
+      - "80:80"
