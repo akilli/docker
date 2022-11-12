@@ -1,0 +1,5 @@
+services:
+  base:
+    image: akilli/base
+    restart: unless-stopped
+    tty: true

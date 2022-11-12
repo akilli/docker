@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -eux
+
+if [ -d /init ]; then
+    run-parts --exit-on-error /init
+fi
+
+exec "$@"

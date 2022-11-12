@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -eux
+
+if [ -z "$TZ" ]; then
+    echo "Error: TZ environment variable not set"
+    exit 1
+fi
+
+unlink /etc/localtime || true
+ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
+echo "$TZ" > /etc/timezone

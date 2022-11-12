@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -eux
+
+rm /etc/group- /etc/passwd- /etc/shadow- || true
+echo "root:x:0:0:root:/root:/bin/sh" > /etc/passwd
+echo "app:x:1000:1000:app:/home/app:/bin/sh" >> /etc/passwd
+echo "root:x:0:root" > /etc/group
+echo "app:x:1000:app" >> /etc/group
+echo "root:::0:::::" > /etc/shadow
+echo "app:!::0:::::" >> /etc/shadow
