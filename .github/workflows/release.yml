@@ -56,7 +56,7 @@ jobs:
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/base
-      context: base
+      context: "{{defaultContext}}:base"
     secrets: inherit
   go:
     needs: [changes, base]
@@ -64,7 +64,7 @@ jobs:
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/go
-      context: go
+      context: "{{defaultContext}}:go"
     secrets: inherit
   gogs:
     needs: [changes, base]
@@ -72,7 +72,7 @@ jobs:
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/gogs
-      context: gogs
+      context: "{{defaultContext}}:gogs"
     secrets: inherit
   jenkins:
     needs: [changes, base]
@@ -80,7 +80,7 @@ jobs:
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/jenkins
-      context: jenkins
+      context: "{{defaultContext}}:jenkins"
     secrets: inherit
   nginx:
     needs: [changes, base]
@@ -88,7 +88,7 @@ jobs:
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/nginx
-      context: nginx
+      context: "{{defaultContext}}:nginx"
     secrets: inherit
   node:
     needs: [changes, base]
@@ -96,7 +96,7 @@ jobs:
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/node
-      context: node
+      context: "{{defaultContext}}:node"
     secrets: inherit
   php:
     needs: [changes, base]
@@ -104,7 +104,7 @@ jobs:
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/php
-      context: php
+      context: "{{defaultContext}}:php"
     secrets: inherit
   postgres:
     needs: [changes, base]
@@ -112,7 +112,7 @@ jobs:
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/postgres
-      context: postgres
+      context: "{{defaultContext}}:postgres"
     secrets: inherit
   registry:
     needs: [changes, base]
@@ -120,7 +120,7 @@ jobs:
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/registry
-      context: registry
+      context: "{{defaultContext}}:registry"
     secrets: inherit
   traefik:
     needs: [changes, base]
@@ -128,5 +128,5 @@ jobs:
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/traefik
-      context: traefik
+      context: "{{defaultContext}}:traefik"
     secrets: inherit
