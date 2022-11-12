@@ -2,7 +2,7 @@
 
 # `akilli/cms`
 
-[akilli/php](https://github.com/akilli/php) based PHP image including the cms source files and defining an `ONBUILD`
+[akilli/php](../php) based PHP image including the cms source files and defining an `ONBUILD`
 command
 
 ```

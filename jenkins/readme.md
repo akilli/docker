@@ -1,6 +1,6 @@
 # `akilli/jenkins`
 
-[akilli/base](https://github.com/akilli/base) based jenkins image with `docker-cli`, `docker-cli-compose`, `docker-cli-buildx`, `git` and `sudo`.
+[akilli/base](../base) based jenkins image with `docker-cli`, `docker-cli-compose`, `docker-cli-buildx`, `git` and `sudo`.
 
 For backwards compatibility the compose plugin is symlinked to `/usr/bin/docker-compose` so you can use both `docker compose` and `docker-compose` commands.
 

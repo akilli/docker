@@ -1,6 +1,6 @@
 # `akilli/php`
 
-[akilli/base](https://github.com/akilli/base) based PHP 8 image.
+[akilli/base](../base) based PHP 8 image.
 
 This images comes with a custom configuration file at `/etc/php/conf.d/90_php.ini` that is pre-configured for production, amongst others, with
 
