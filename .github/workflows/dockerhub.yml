@@ -28,6 +28,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: build & load
+        uses: docker/build-push-action@v3
+        with:
+          load: true
+          tags: ${{ inputs.image }}:${{ inputs.tag }}
+          context: ${{ inputs.context }}
+      - name: test
+        run: |
+          docker run --rm ${{ inputs.image }}:${{ inputs.tag }}
       - name: build & push
         uses: docker/build-push-action@v3
         with:
