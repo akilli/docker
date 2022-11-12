@@ -1,0 +1,10 @@
+volumes:
+  data: {}
+services:
+  registry:
+    image: akilli/registry
+    restart: unless-stopped
+    ports:
+      - "80:5000"
+    volumes:
+      - data:/data
