@@ -1,3 +1,3 @@
 # akilli docker
 
-Custom docker images ultimately based on `alpine:edge`.
+Custom docker images based on `alpine:edge`.
