@@ -50,7 +50,7 @@ jobs:
   base:
     needs: changes
     if: needs.changes.outputs.base == 'true'
-    uses: akilli/docker/.github/workflows/dockerhub.yml@${{ github.ref }}
+    uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/base
       context: base
@@ -58,7 +58,7 @@ jobs:
   go:
     needs: [changes, base]
     if: needs.changes.outputs.base == 'true' || needs.changes.outputs.go == 'true'
-    uses: akilli/docker/.github/workflows/dockerhub.yml@${{ github.ref }}
+    uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/go
       context: go
@@ -66,7 +66,7 @@ jobs:
   gogs:
     needs: [changes, base]
     if: needs.changes.outputs.base == 'true' || needs.changes.outputs.gogs == 'true'
-    uses: akilli/docker/.github/workflows/dockerhub.yml@${{ github.ref }}
+    uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/gogs
       context: gogs
@@ -74,7 +74,7 @@ jobs:
   jenkins:
     needs: [changes, base]
     if: needs.changes.outputs.base == 'true' || needs.changes.outputs.jenkins == 'true'
-    uses: akilli/docker/.github/workflows/dockerhub.yml@${{ github.ref }}
+    uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/jenkins
       context: jenkins
@@ -82,7 +82,7 @@ jobs:
   nginx:
     needs: [changes, base]
     if: needs.changes.outputs.base == 'true' || needs.changes.outputs.nginx == 'true'
-    uses: akilli/docker/.github/workflows/dockerhub.yml@${{ github.ref }}
+    uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/nginx
       context: nginx
@@ -90,7 +90,7 @@ jobs:
   node:
     needs: [changes, base]
     if: needs.changes.outputs.base == 'true' || needs.changes.outputs.node == 'true'
-    uses: akilli/docker/.github/workflows/dockerhub.yml@${{ github.ref }}
+    uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/node
       context: node
@@ -98,7 +98,7 @@ jobs:
   php:
     needs: [changes, base]
     if: needs.changes.outputs.base == 'true' || needs.changes.outputs.php == 'true'
-    uses: akilli/docker/.github/workflows/dockerhub.yml@${{ github.ref }}
+    uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/php
       context: php
@@ -106,7 +106,7 @@ jobs:
   postgres:
     needs: [changes, base]
     if: needs.changes.outputs.base == 'true' || needs.changes.outputs.postgres == 'true'
-    uses: akilli/docker/.github/workflows/dockerhub.yml@${{ github.ref }}
+    uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/postgres
       context: postgres
@@ -114,7 +114,7 @@ jobs:
   registry:
     needs: [changes, base]
     if: needs.changes.outputs.base == 'true' || needs.changes.outputs.registry == 'true'
-    uses: akilli/docker/.github/workflows/dockerhub.yml@${{ github.ref }}
+    uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/registry
       context: registry
@@ -122,7 +122,7 @@ jobs:
   traefik:
     needs: [changes, base]
     if: needs.changes.outputs.base == 'true' || needs.changes.outputs.traefik == 'true'
-    uses: akilli/docker/.github/workflows/dockerhub.yml@${{ github.ref }}
+    uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/traefik
       context: traefik
