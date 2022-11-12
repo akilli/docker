@@ -37,8 +37,7 @@ jobs:
           tags: ${{ inputs.image }}:${{ inputs.tag }}
           context: ${{ inputs.context }}
       - name: test
-        run: |
-          docker run --rm --entrypoint ls ${{ inputs.image }}:${{ inputs.tag }} -al
+        run: docker run --rm --entrypoint ls ${{ inputs.image }}:${{ inputs.tag }} -al
       - name: build & push
         uses: docker/build-push-action@v3
         with:
