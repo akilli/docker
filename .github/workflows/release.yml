@@ -1,0 +1,129 @@
+name: release
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '.github/**'
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      base: ${{ steps.filter.outputs.base }}
+      go: ${{ steps.filter.outputs.go }}
+      gogs: ${{ steps.filter.outputs.gogs }}
+      jenkins: ${{ steps.filter.outputs.jenkins }}
+      nginx: ${{ steps.filter.outputs.nginx }}
+      node: ${{ steps.filter.outputs.node }}
+      php: ${{ steps.filter.outputs.php }}
+      postgres: ${{ steps.filter.outputs.postgres }}
+      registry: ${{ steps.filter.outputs.registry }}
+      traefik: ${{ steps.filter.outputs.traefik }}
+    steps:
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            base:
+              - 'base/**'
+            go:
+              - 'go/**'
+            gogs:
+              - 'gogs/**'
+            jenkins:
+              - 'jenkins/**'
+            nginx:
+              - 'nginx/**'
+            node:
+              - 'node/**'
+            php:
+              - 'php/**'
+            postgres:
+              - 'postgres/**'
+            registry:
+              - 'registry/**'
+            traefik:
+              - 'traefik/**'
+  base:
+    needs: changes
+    if: changes.outputs.base == 'true'
+    uses: ./dockerhub.yml@master
+    with:
+      image: akilli/base
+      context: base
+    secrets: inherit
+  go:
+    needs: [changes, base]
+    if: changes.outputs.base == 'true' || changes.outputs.go == 'true'
+    uses: ./dockerhub.yml@master
+    with:
+      image: akilli/go
+      context: go
+    secrets: inherit
+  gogs:
+    needs: [changes, base]
+    if: changes.outputs.base == 'true' || changes.outputs.gogs == 'true'
+    uses: ./dockerhub.yml@master
+    with:
+      image: akilli/gogs
+      context: gogs
+    secrets: inherit
+  jenkins:
+    needs: [changes, base]
+    if: changes.outputs.base == 'true' || changes.outputs.jenkins == 'true'
+    uses: ./dockerhub.yml@master
+    with:
+      image: akilli/jenkins
+      context: jenkins
+    secrets: inherit
+  nginx:
+    needs: [changes, base]
+    if: changes.outputs.base == 'true' || changes.outputs.nginx == 'true'
+    uses: ./dockerhub.yml@master
+    with:
+      image: akilli/nginx
+      context: nginx
+    secrets: inherit
+  node:
+    needs: [changes, base]
+    if: changes.outputs.base == 'true' || changes.outputs.node == 'true'
+    uses: ./dockerhub.yml@master
+    with:
+      image: akilli/node
+      context: node
+    secrets: inherit
+  php:
+    needs: [changes, base]
+    if: changes.outputs.base == 'true' || changes.outputs.php == 'true'
+    uses: ./dockerhub.yml@master
+    with:
+      image: akilli/php
+      context: php
+    secrets: inherit
+  postgres:
+    needs: [changes, base]
+    if: changes.outputs.base == 'true' || changes.outputs.postgres == 'true'
+    uses: ./dockerhub.yml@master
+    with:
+      image: akilli/postgres
+      context: postgres
+    secrets: inherit
+  registry:
+    needs: [changes, base]
+    if: changes.outputs.base == 'true' || changes.outputs.registry == 'true'
+    uses: ./dockerhub.yml@master
+    with:
+      image: akilli/registry
+      context: registry
+    secrets: inherit
+  traefik:
+    needs: [changes, base]
+    if: changes.outputs.base == 'true' || changes.outputs.traefik == 'true'
+    uses: ./dockerhub.yml@master
+    with:
+      image: akilli/traefik
+      context: traefik
+    secrets: inherit
