@@ -36,7 +36,7 @@ jobs:
           context: ${{ inputs.context }}
       - name: test
         run: |
-          docker run --rm --entrypoint '/bin/sh -c' ${{ inputs.image }}:${{ inputs.tag }} ls -al
+          docker run --rm --entrypoint 'sh -c' ${{ inputs.image }}:${{ inputs.tag }} ls -al
       - name: build & push
         uses: docker/build-push-action@v3
         with:
