@@ -33,7 +33,7 @@ jobs:
         with:
           load: true
           tags: ${{ inputs.image }}:${{ inputs.tag }}
-          context: {{defaultContext}}:${{ inputs.context }}
+          context: "{{defaultContext}}:${{ inputs.context }}"
       - name: test run
         run: |
           docker run --rm --entrypoint ls ${{ inputs.image }}:${{ inputs.tag }} -al
@@ -42,4 +42,4 @@ jobs:
         with:
           push: true
           tags: ${{ inputs.image }}:${{ inputs.tag }}
-          context: {{defaultContext}}:${{ inputs.context }}
+          context: "{{defaultContext}}:${{ inputs.context }}"
