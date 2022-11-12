@@ -1,0 +1,6 @@
+services:
+  nginx:
+    image: akilli/nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
