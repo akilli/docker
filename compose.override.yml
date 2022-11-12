@@ -1,0 +1,4 @@
+services:
+  php:
+    environment:
+      - DEV=1
