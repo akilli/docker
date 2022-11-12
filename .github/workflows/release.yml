@@ -13,7 +13,6 @@ jobs:
       pull-requests: read
     outputs:
       base: ${{ steps.filter.outputs.base }}
-      go: ${{ steps.filter.outputs.go }}
       gogs: ${{ steps.filter.outputs.gogs }}
       jenkins: ${{ steps.filter.outputs.jenkins }}
       nginx: ${{ steps.filter.outputs.nginx }}
@@ -32,8 +31,6 @@ jobs:
           filters: |
             base:
               - 'base/**'
-            go:
-              - 'go/**'
             gogs:
               - 'gogs/**'
             jenkins:
@@ -57,14 +54,6 @@ jobs:
     with:
       image: akilli/base
       context: "{{defaultContext}}:base"
-    secrets: inherit
-  go:
-    needs: [changes, base]
-    if: needs.changes.outputs.base == 'true' || needs.changes.outputs.go == 'true'
-    uses: akilli/docker/.github/workflows/dockerhub.yml@master
-    with:
-      image: akilli/go
-      context: "{{defaultContext}}:go"
     secrets: inherit
   gogs:
     needs: [changes, base]
