@@ -10,6 +10,10 @@ on:
         type: string
         required: false
         default: latest
+      context:
+        type: string
+        required: false
+        default: .
     secrets:
       DOCKERHUB_USERNAME:
         required: true
@@ -29,3 +33,4 @@ jobs:
         with:
           push: true
           tags: ${{ inputs.image }}:${{ inputs.tag }}
+          context: ${{ inputs.context }}
