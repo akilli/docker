@@ -49,7 +49,7 @@ jobs:
               - 'traefik/**'
   base:
     needs: changes
-    if: changes.outputs.base == 'true'
+    if: needs.changes.outputs.base == 'true'
     uses: ./dockerhub.yml@master
     with:
       image: akilli/base
@@ -57,7 +57,7 @@ jobs:
     secrets: inherit
   go:
     needs: [changes, base]
-    if: changes.outputs.base == 'true' || changes.outputs.go == 'true'
+    if: needs.changes.outputs.base == 'true' || needs.changes.outputs.go == 'true'
     uses: ./dockerhub.yml@master
     with:
       image: akilli/go
@@ -65,7 +65,7 @@ jobs:
     secrets: inherit
   gogs:
     needs: [changes, base]
-    if: changes.outputs.base == 'true' || changes.outputs.gogs == 'true'
+    if: needs.changes.outputs.base == 'true' || needs.changes.outputs.gogs == 'true'
     uses: ./dockerhub.yml@master
     with:
       image: akilli/gogs
@@ -73,7 +73,7 @@ jobs:
     secrets: inherit
   jenkins:
     needs: [changes, base]
-    if: changes.outputs.base == 'true' || changes.outputs.jenkins == 'true'
+    if: needs.changes.outputs.base == 'true' || needs.changes.outputs.jenkins == 'true'
     uses: ./dockerhub.yml@master
     with:
       image: akilli/jenkins
@@ -81,7 +81,7 @@ jobs:
     secrets: inherit
   nginx:
     needs: [changes, base]
-    if: changes.outputs.base == 'true' || changes.outputs.nginx == 'true'
+    if: needs.changes.outputs.base == 'true' || needs.changes.outputs.nginx == 'true'
     uses: ./dockerhub.yml@master
     with:
       image: akilli/nginx
@@ -89,7 +89,7 @@ jobs:
     secrets: inherit
   node:
     needs: [changes, base]
-    if: changes.outputs.base == 'true' || changes.outputs.node == 'true'
+    if: needs.changes.outputs.base == 'true' || needs.changes.outputs.node == 'true'
     uses: ./dockerhub.yml@master
     with:
       image: akilli/node
@@ -97,7 +97,7 @@ jobs:
     secrets: inherit
   php:
     needs: [changes, base]
-    if: changes.outputs.base == 'true' || changes.outputs.php == 'true'
+    if: needs.changes.outputs.base == 'true' || needs.changes.outputs.php == 'true'
     uses: ./dockerhub.yml@master
     with:
       image: akilli/php
@@ -105,7 +105,7 @@ jobs:
     secrets: inherit
   postgres:
     needs: [changes, base]
-    if: changes.outputs.base == 'true' || changes.outputs.postgres == 'true'
+    if: needs.changes.outputs.base == 'true' || needs.changes.outputs.postgres == 'true'
     uses: ./dockerhub.yml@master
     with:
       image: akilli/postgres
@@ -113,7 +113,7 @@ jobs:
     secrets: inherit
   registry:
     needs: [changes, base]
-    if: changes.outputs.base == 'true' || changes.outputs.registry == 'true'
+    if: needs.changes.outputs.base == 'true' || needs.changes.outputs.registry == 'true'
     uses: ./dockerhub.yml@master
     with:
       image: akilli/registry
@@ -121,7 +121,7 @@ jobs:
     secrets: inherit
   traefik:
     needs: [changes, base]
-    if: changes.outputs.base == 'true' || changes.outputs.traefik == 'true'
+    if: needs.changes.outputs.base == 'true' || needs.changes.outputs.traefik == 'true'
     uses: ./dockerhub.yml@master
     with:
       image: akilli/traefik
