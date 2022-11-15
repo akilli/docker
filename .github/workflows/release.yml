@@ -9,8 +9,6 @@ on:
 jobs:
   changes:
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: read
     outputs:
       base: ${{ steps.filter.outputs.base }}
       gogs: ${{ steps.filter.outputs.gogs }}
