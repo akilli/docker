@@ -1,0 +1,21 @@
+FROM akilli/base
+LABEL maintainer="Ayhan Akilli"
+
+ENV MYPASS=app
+
+RUN apk add --no-cache \
+        mysql \
+        mysql-client && \
+    rm -rf \
+      /run/mysqld \
+      /var/lib/mysql && \
+    mkdir -p \
+        /init/mysql \
+        /run/mysql && \
+    chown -R app:app /run/mysql && \
+    app-user && \
+    app-chown
+COPY init/ /init/
+COPY my.cnf /etc/my.cnf
+
+CMD ["su-exec", "app", "mysqld"]

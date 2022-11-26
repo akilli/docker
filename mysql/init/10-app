@@ -1,0 +1,37 @@
+#!/bin/sh
+
+set -eux
+
+if [ -z "$(ls -A /data)" ]; then
+    mysql_install_db --user=app --datadir=/data --auth-root-authentication-method=normal
+    mysqld --user=app --skip-networking &
+
+    until mysqladmin --user=root ping > /dev/null 2>&1; do
+        printf "."
+        sleep 1
+    done
+
+    mysql --user=root << EOF
+        DROP DATABASE IF EXISTS test;
+        CREATE DATABASE app DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+        DELETE FROM mysql.user;
+        CREATE USER 'app'@'%' IDENTIFIED BY '$MYPASS';
+        GRANT ALL PRIVILEGES ON *.* TO 'app'@'%' WITH GRANT OPTION;
+        FLUSH PRIVILEGES;
+EOF
+
+    for file in $(find /init/mysql -type f -name '*.sql' | sort); do
+        mysql --user=app --password="$MYPASS" app < "$file"
+    done
+
+    mysqladmin --user=app --password="$MYPASS" shutdown
+else
+    find /data -type d -exec chmod 700 {} \;
+    find /data -type f -exec chmod 600 {} \;
+fi
+
+grep '\[mysqldump\]' /etc/my.cnf || cat >> /etc/my.cnf << EOF
+[mysqldump]
+user=app
+password=$MYPASS
+EOF
