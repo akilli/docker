@@ -3,4 +3,6 @@ LABEL maintainer="Ayhan Akilli"
 
 RUN apk add --no-cache \
         nodejs \
-        npm
+        npm && \
+    app-user && \
+    app-chown
