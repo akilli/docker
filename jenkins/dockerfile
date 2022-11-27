@@ -12,7 +12,6 @@ RUN apk add --no-cache \
         docker-cli-compose \
         git \
         openjdk11-jre \
-        sudo \
         ttf-dejavu && \
     apk add --no-cache --virtual .build \
         binutils \
@@ -28,11 +27,11 @@ RUN apk add --no-cache \
     mv /tmp/default-jvm $JAVA_HOME && \
     apk del .build && \
     ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/bin/docker-compose && \
-    echo 'app ALL = NOPASSWD: /usr/bin/docker, /usr/bin/docker-compose' >> /etc/sudoers && \
     mkdir -p /var/cache/jenkins && \
     chown -R app:app /var/cache/jenkins && \
     wget -O /app/jenkins.war https://updates.jenkins-ci.org/latest/jenkins.war && \
     app-user && \
     app-chown
+COPY init/ /init/
 
 CMD ["su-exec", "app", "java", "-Djava.awt.headless=true", "-jar", "/app/jenkins.war", "--webroot=/var/cache/jenkins"]
