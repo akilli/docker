@@ -1,0 +1,10 @@
+volumes:
+  data: {}
+services:
+  drone:
+    image: akilli/drone
+    restart: unless-stopped
+    ports:
+      - "80:8080"
+    volumes:
+      - data:/data

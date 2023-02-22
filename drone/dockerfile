@@ -1,0 +1,16 @@
+FROM akilli/base
+LABEL maintainer="Ayhan Akilli"
+
+ENV DRONE_DATABASE_DATASOURCE=/data/database.sqlite
+ENV DRONE_DATABASE_DRIVER=sqlite3
+ENV GODEBUG="netdns=go"
+ENV XDG_CACHE_HOME=/data
+
+RUN apk add --no-cache drone && \
+    rm -rf \
+        /etc/drone.conf \
+        /var/lib/drone && \
+    app-user && \
+    app-chown
+
+CMD ["su-exec", "app", "drone-server"]
