@@ -6,10 +6,6 @@ on:
         type: string
         required: false
         default: ${{ github.repository }}
-      tag:
-        type: string
-        required: false
-        default: latest
       context:
         type: string
         required: false
@@ -23,6 +19,17 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - name: meta
+        uses: docker/metadata-action@v4
+        id: meta
+        with:
+          images: ${{ inputs.image }}
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
       - name: setup
         uses: docker/setup-buildx-action@v2
       - name: login
@@ -34,13 +41,13 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           load: true
-          tags: ${{ inputs.image }}:${{ inputs.tag }}
+          tags: ${{ inputs.image }}:${{ github.sha }}
           context: ${{ inputs.context }}
       - name: test
-        run: docker run --rm --entrypoint ls ${{ inputs.image }}:${{ inputs.tag }} -al
+        run: docker run --rm --entrypoint ls ${{ inputs.image }}:${{ github.sha }} -al
       - name: build & push
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ${{ inputs.image }}:${{ inputs.tag }}
+          tags: ${{ steps.meta.outputs.tags }}
           context: ${{ inputs.context }}
