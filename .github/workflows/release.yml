@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: detech changes
+      - name: detect changes
         uses: dorny/paths-filter@v2
         id: filter
         with:
