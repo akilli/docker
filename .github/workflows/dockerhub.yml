@@ -40,10 +40,10 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           load: true
-          tags: ${{ inputs.image }}:${{ github.sha }}
+          tags: ${{ inputs.image }}:test
           context: ${{ inputs.context }}
       - name: test
-        run: docker run --rm --entrypoint ls ${{ inputs.image }}:${{ github.sha }} -al
+        run: docker run --rm --entrypoint ls ${{ inputs.image }}:test -al
       - name: build & push
         uses: docker/build-push-action@v4
         with:
