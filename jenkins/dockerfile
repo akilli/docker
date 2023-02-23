@@ -27,8 +27,7 @@ RUN apk add --no-cache \
     rm -rf /usr/lib/jvm/* && \
     mv /tmp/default-jvm $JAVA_HOME && \
     apk del .build && \
-    ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/bin/docker-compose && \
-    echo 'app ALL = NOPASSWD: /usr/bin/docker, /usr/bin/docker-compose' >> /etc/sudoers && \
+    echo 'app ALL = NOPASSWD: /usr/bin/docker' >> /etc/sudoers && \
     mkdir -p /var/cache/jenkins && \
     chown -R app:app /var/cache/jenkins && \
     wget -O /app/jenkins.war https://updates.jenkins-ci.org/latest/jenkins.war && \
