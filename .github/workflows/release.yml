@@ -13,6 +13,7 @@ jobs:
     outputs:
       base: ${{ steps.filter.outputs.base }}
       drone: ${{ steps.filter.outputs.drone }}
+      drone-runner: ${{ steps.filter.outputs.drone-runner }}
       gogs: ${{ steps.filter.outputs.gogs }}
       jenkins: ${{ steps.filter.outputs.jenkins }}
       mysql: ${{ steps.filter.outputs.mysql }}
@@ -34,6 +35,8 @@ jobs:
               - 'base/**'
             drone:
               - 'drone/**'
+            drone-runner:
+              - 'drone-runner/**'
             gogs:
               - 'gogs/**'
             jenkins:
@@ -67,6 +70,14 @@ jobs:
     with:
       image: akilli/drone
       context: "{{defaultContext}}:drone"
+    secrets: inherit
+  drone-runner:
+    needs: [ changes, base ]
+    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.drone-runner == 'true')
+    uses: akilli/docker/.github/workflows/dockerhub.yml@master
+    with:
+      image: akilli/drone-runner
+      context: "{{defaultContext}}:drone-runner"
     secrets: inherit
   gogs:
     needs: [changes, base]
