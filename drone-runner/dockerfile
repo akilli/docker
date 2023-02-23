@@ -4,7 +4,6 @@ LABEL maintainer="Ayhan Akilli"
 ENV DRONE_PLATFORM_ARCH=amd64
 ENV DRONE_PLATFORM_OS=linux
 ENV GODEBUG="netdns=go"
-ENV XDG_CACHE_HOME=/var/cache/app
 
 RUN apk add --no-cache \
     docker-cli \
@@ -12,9 +11,6 @@ RUN apk add --no-cache \
     docker-cli-compose \
     git \
     sudo && \
-    rm -rf \
-        /etc/drone.conf \
-        /var/lib/drone && \
     echo 'app ALL = NOPASSWD: /usr/bin/docker' >> /etc/sudoers && \
     wget https://github.com/drone-runners/drone-runner-exec/releases/latest/download/drone_runner_exec_linux_amd64.tar.gz && \
     tar -xf drone_runner_exec_linux_amd64.tar.gz && \
