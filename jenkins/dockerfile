@@ -28,10 +28,8 @@ RUN apk add --no-cache \
     mv /tmp/default-jvm $JAVA_HOME && \
     apk del .build && \
     echo 'app ALL = NOPASSWD: /usr/bin/docker' >> /etc/sudoers && \
-    mkdir -p /var/cache/jenkins && \
-    chown -R app:app /var/cache/jenkins && \
     wget -O /app/jenkins.war https://updates.jenkins-ci.org/latest/jenkins.war && \
     app-user && \
     app-chown
 
-CMD ["su-exec", "app", "java", "-Djava.awt.headless=true", "-jar", "/app/jenkins.war", "--webroot=/var/cache/jenkins"]
+CMD ["su-exec", "app", "java", "-Djava.awt.headless=true", "-jar", "/app/jenkins.war", "--webroot=/var/cache/app"]

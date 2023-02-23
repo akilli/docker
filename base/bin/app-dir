@@ -2,5 +2,5 @@
 
 set -eux
 
-mkdir -p /app /data /home/app /init
+mkdir -p /app /data /home/app /init /var/cache/app
 app-chown
