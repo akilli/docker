@@ -4,7 +4,7 @@ LABEL maintainer="Ayhan Akilli"
 ENV DRONE_DATABASE_DATASOURCE=/data/database.sqlite
 ENV DRONE_DATABASE_DRIVER=sqlite3
 ENV GODEBUG="netdns=go"
-ENV XDG_CACHE_HOME=/data
+ENV XDG_CACHE_HOME=/var/cache/app
 
 RUN apk add --no-cache drone && \
     rm -rf \
