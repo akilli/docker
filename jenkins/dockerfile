@@ -27,7 +27,7 @@ RUN apk add --no-cache \
     rm -rf /usr/lib/jvm/* && \
     mv /tmp/default-jvm $JAVA_HOME && \
     apk del .build && \
-    echo 'app ALL = NOPASSWD: /usr/bin/docker' >> /etc/sudoers && \
+    echo 'app ALL = NOPASSWD:SETENV: /usr/bin/docker' >> /etc/sudoers && \
     wget -O /app/jenkins.war https://updates.jenkins-ci.org/latest/jenkins.war && \
     app-user && \
     app-chown
