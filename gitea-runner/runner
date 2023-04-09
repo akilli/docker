@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -eux
+
+if [ ! -f /.runner ]; then
+    gitea-runner register --no-interactive --instance $GITEA_URL --token $GITEA_TOKEN --labels $RUNNER_LABELS --name $RUNNER_NAME
+else
+    gitea-runner daemon
+fi

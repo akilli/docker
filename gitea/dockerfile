@@ -1,0 +1,16 @@
+FROM akilli/base
+LABEL maintainer="Ayhan Akilli"
+
+ENV GITEA_CUSTOM=/data
+ENV GITEA_USER=app
+ENV GITEA_WORK_DIR=/app
+
+RUN apk add --no-cache gitea && \
+    rm -rf \
+        /etc/gitea \
+        /var/lib/gitea && \
+    app-user && \
+    app-chown
+COPY app.ini /data/conf/app.ini
+
+CMD ["su-exec", "app", "gitea", "web", "--config", "/data/conf/app.ini"]

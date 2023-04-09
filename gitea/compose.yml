@@ -1,0 +1,10 @@
+volumes:
+  data: {}
+services:
+  gitea:
+    image: akilli/gitea
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - data:/data
