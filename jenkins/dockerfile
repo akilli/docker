@@ -1,4 +1,4 @@
-FROM akilli/base
+FROM akilli/docker
 LABEL maintainer="Ayhan Akilli"
 
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm
@@ -7,12 +7,8 @@ ENV JENKINS_HOME=/data
 ENV JENKINS_USER=app
 
 RUN apk add --no-cache \
-        docker-cli \
-        docker-cli-buildx \
-        docker-cli-compose \
         git \
         openjdk11-jre \
-        sudo \
         ttf-dejavu && \
     apk add --no-cache --virtual .build \
         binutils \
@@ -27,7 +23,6 @@ RUN apk add --no-cache \
     rm -rf /usr/lib/jvm/* && \
     mv /tmp/default-jvm $JAVA_HOME && \
     apk del .build && \
-    echo 'app ALL = NOPASSWD:SETENV: /usr/bin/docker' >> /etc/sudoers && \
     wget -O /app/jenkins.war https://updates.jenkins-ci.org/latest/jenkins.war && \
     app-user && \
     app-chown

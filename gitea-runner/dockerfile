@@ -1,19 +1,15 @@
-FROM akilli/base
+FROM akilli/docker
 LABEL maintainer="Ayhan Akilli"
 
 ENV GITEA_TOKEN=
-ENV GITEA_URL=http://gitea
+ENV GITEA_URL=
 ENV RUNNER_LABELS=alpine,alpine-edge,docker
 ENV RUNNER_NAME=runner
 
-RUN apk add --no-cache \
-        docker-cli \
-        docker-cli-buildx \
-        docker-cli-compose && \
-    wget -O /usr/local/bin/gitea-runner https://dl.gitea.com/act_runner/main/act_runner-main-linux-amd64 && \
+RUN wget -O /usr/local/bin/gitea-runner https://dl.gitea.com/act_runner/main/act_runner-main-linux-amd64 && \
     chmod a+x /usr/local/bin/gitea-runner && \
     app-user && \
     app-chown
 COPY runner /usr/local/bin/runner
 
-CMD ["runner"]
+CMD ["su-exec", "app", "runner"]

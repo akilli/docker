@@ -4,6 +4,6 @@ services:
     restart: unless-stopped
     environment:
       - GITEA_TOKEN
-      - GITEA_URL=http://gitea
+      - GITEA_URL
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
