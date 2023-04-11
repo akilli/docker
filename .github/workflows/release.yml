@@ -14,6 +14,7 @@ jobs:
       base: ${{ steps.filter.outputs.base }}
       gogs: ${{ steps.filter.outputs.gogs }}
       jenkins: ${{ steps.filter.outputs.jenkins }}
+      maildev: ${{ steps.filter.outputs.maildev }}
       mysql: ${{ steps.filter.outputs.mysql }}
       nginx: ${{ steps.filter.outputs.nginx }}
       node: ${{ steps.filter.outputs.node }}
@@ -35,6 +36,8 @@ jobs:
               - 'gogs/**'
             jenkins:
               - 'jenkins/**'
+            maildev:
+              - 'maildev/**'
             mysql:
               - 'mysql/**'
             nginx:
@@ -72,6 +75,14 @@ jobs:
     with:
       image: akilli/jenkins
       context: "{{defaultContext}}:jenkins"
+    secrets: inherit
+  maildev:
+    needs: [changes, base]
+    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.maildev == 'true')
+    uses: akilli/docker/.github/workflows/dockerhub.yml@master
+    with:
+      image: akilli/maildev
+      context: "{{defaultContext}}:maildev"
     secrets: inherit
   mysql:
     needs: [ changes, base ]
