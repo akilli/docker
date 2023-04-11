@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -eux
+
+groupId=$(stat -c "%g" /var/run/docker.sock)
+groupName=$(stat -c "%G" /var/run/docker.sock)
+
+if [ groupName != "docker" ]; then
+    app-user
+    app-chown
+    addgroup --gid $groupId --system docker
+    addgroup app docker
+fi
