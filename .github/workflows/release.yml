@@ -92,8 +92,8 @@ jobs:
       context: "{{defaultContext}}:gitea"
     secrets: inherit
   gitea-runner:
-    needs: [changes, base]
-    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.gitea-runner == 'true')
+    needs: [changes, docker]
+    if: (success() && needs.changes.outputs.docker == 'true') || (always() && needs.changes.outputs.gitea-runner == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/gitea-runner
@@ -116,16 +116,16 @@ jobs:
       context: "{{defaultContext}}:gogs"
     secrets: inherit
   jenkins:
-    needs: [changes, base]
-    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.jenkins == 'true')
+    needs: [changes, docker]
+    if: (success() && needs.changes.outputs.docker == 'true') || (always() && needs.changes.outputs.jenkins == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/jenkins
       context: "{{defaultContext}}:jenkins"
     secrets: inherit
   maildev:
-    needs: [changes, base]
-    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.maildev == 'true')
+    needs: [changes, node]
+    if: (success() && needs.changes.outputs.node == 'true') || (always() && needs.changes.outputs.maildev == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/maildev
