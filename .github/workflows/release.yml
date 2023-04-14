@@ -77,7 +77,7 @@ jobs:
     secrets: inherit
   docker:
     needs: [changes, base]
-    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.docker == 'true')
+    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.docker == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/docker
@@ -85,7 +85,7 @@ jobs:
     secrets: inherit
   gitea:
     needs: [changes, base]
-    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.gitea == 'true')
+    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.gitea == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/gitea
@@ -93,7 +93,7 @@ jobs:
     secrets: inherit
   gitea-runner:
     needs: [changes, docker]
-    if: (success() && needs.changes.outputs.docker == 'true') || (always() && needs.changes.outputs.gitea-runner == 'true')
+    if: (success() && needs.docker.if == 'true') || (always() && needs.changes.outputs.gitea-runner == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/gitea-runner
@@ -101,7 +101,7 @@ jobs:
     secrets: inherit
   go:
     needs: [changes, base]
-    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.go == 'true')
+    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.go == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/go
@@ -109,7 +109,7 @@ jobs:
     secrets: inherit
   gogs:
     needs: [changes, base]
-    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.gogs == 'true')
+    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.gogs == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/gogs
@@ -117,7 +117,7 @@ jobs:
     secrets: inherit
   jenkins:
     needs: [changes, docker]
-    if: (success() && needs.changes.outputs.docker == 'true') || (always() && needs.changes.outputs.jenkins == 'true')
+    if: (success() && needs.docker.if == 'true') || (always() && needs.changes.outputs.jenkins == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/jenkins
@@ -133,7 +133,7 @@ jobs:
     secrets: inherit
   mysql:
     needs: [ changes, base ]
-    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.mysql == 'true')
+    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.mysql == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/mysql
@@ -141,7 +141,7 @@ jobs:
     secrets: inherit
   nginx:
     needs: [changes, base]
-    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.nginx == 'true')
+    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.nginx == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/nginx
@@ -149,7 +149,7 @@ jobs:
     secrets: inherit
   node:
     needs: [changes, base]
-    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.node == 'true')
+    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.node == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/node
@@ -157,7 +157,7 @@ jobs:
     secrets: inherit
   php:
     needs: [changes, base]
-    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.php == 'true')
+    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.php == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/php
@@ -165,7 +165,7 @@ jobs:
     secrets: inherit
   postgres:
     needs: [changes, base]
-    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.postgres == 'true')
+    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.postgres == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/postgres
@@ -173,7 +173,7 @@ jobs:
     secrets: inherit
   redis:
     needs: [changes, base]
-    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.redis == 'true')
+    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.redis == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/redis
@@ -181,7 +181,7 @@ jobs:
     secrets: inherit
   registry:
     needs: [changes, base]
-    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.registry == 'true')
+    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.registry == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/registry
@@ -189,7 +189,7 @@ jobs:
     secrets: inherit
   traefik:
     needs: [changes, base]
-    if: (success() && needs.changes.outputs.base == 'true') || (always() && needs.changes.outputs.traefik == 'true')
+    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.traefik == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/traefik
