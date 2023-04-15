@@ -1,0 +1,9 @@
+FROM akilli/base
+LABEL maintainer="Ayhan Akilli"
+
+RUN apk add --no-cache caddy && \
+    rm /etc/caddy/Caddyfile && \
+    app-user && \
+    app-chown
+
+CMD ["caddy", "run", "--config", "/app/caddyfile", "--adapter", "caddyfile"]
