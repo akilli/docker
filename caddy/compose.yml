@@ -1,7 +1,0 @@
-services:
-  caddy:
-    image: akilli/caddy
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
