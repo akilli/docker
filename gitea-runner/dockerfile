@@ -3,7 +3,7 @@ LABEL maintainer="Ayhan Akilli"
 
 ENV GITEA_TOKEN=
 ENV GITEA_URL=
-ENV RUNNER_LABELS=alpine,alpine-edge,docker
+ENV RUNNER_LABELS=
 ENV RUNNER_NAME=runner
 
 RUN wget -O /usr/local/bin/gitea-runner https://dl.gitea.com/act_runner/main/act_runner-main-linux-amd64 && \
