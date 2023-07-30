@@ -14,7 +14,6 @@ jobs:
       base: ${{ steps.filter.outputs.base }}
       gogs: ${{ steps.filter.outputs.gogs }}
       jenkins: ${{ steps.filter.outputs.jenkins }}
-      mysql: ${{ steps.filter.outputs.mysql }}
       nginx: ${{ steps.filter.outputs.nginx }}
       node: ${{ steps.filter.outputs.node }}
       php: ${{ steps.filter.outputs.php }}
@@ -35,8 +34,6 @@ jobs:
               - 'gogs/**'
             jenkins:
               - 'jenkins/**'
-            mysql:
-              - 'mysql/**'
             nginx:
               - 'nginx/**'
             node:
@@ -72,14 +69,6 @@ jobs:
     with:
       image: akilli/jenkins
       context: "{{defaultContext}}:jenkins"
-    secrets: inherit
-  mysql:
-    needs: [ changes, base ]
-    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.mysql == 'true')
-    uses: akilli/docker/.github/workflows/dockerhub.yml@master
-    with:
-      image: akilli/mysql
-      context: "{{defaultContext}}:mysql"
     secrets: inherit
   nginx:
     needs: [changes, base]
