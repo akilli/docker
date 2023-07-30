@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       base: ${{ steps.filter.outputs.base }}
-      docker: ${{ steps.filter.outputs.docker }}
       gogs: ${{ steps.filter.outputs.gogs }}
       jenkins: ${{ steps.filter.outputs.jenkins }}
       mysql: ${{ steps.filter.outputs.mysql }}
@@ -32,8 +31,6 @@ jobs:
           filters: |
             base:
               - 'base/**'
-            docker:
-              - 'docker/**'
             gogs:
               - 'gogs/**'
             jenkins:
@@ -60,14 +57,6 @@ jobs:
       image: akilli/base
       context: "{{defaultContext}}:base"
     secrets: inherit
-  docker:
-    needs: [changes, base]
-    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.docker == 'true')
-    uses: akilli/docker/.github/workflows/dockerhub.yml@master
-    with:
-      image: akilli/docker
-      context: "{{defaultContext}}:docker"
-    secrets: inherit
   gogs:
     needs: [changes, base]
     if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.gogs == 'true')
@@ -77,8 +66,8 @@ jobs:
       context: "{{defaultContext}}:gogs"
     secrets: inherit
   jenkins:
-    needs: [changes, docker]
-    if: (success() && needs.docker.if == 'true') || (always() && needs.changes.outputs.jenkins == 'true')
+    needs: [changes, base]
+    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.jenkins == 'true')
     uses: akilli/docker/.github/workflows/dockerhub.yml@master
     with:
       image: akilli/jenkins

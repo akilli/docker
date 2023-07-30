@@ -1,4 +1,4 @@
-FROM akilli/docker
+FROM akilli/base
 LABEL maintainer="Ayhan Akilli"
 
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm
@@ -7,6 +7,9 @@ ENV JENKINS_HOME=/data
 ENV JENKINS_USER=app
 
 RUN apk add --no-cache \
+        docker-cli \
+        docker-cli-buildx \
+        docker-cli-compose \
         git \
         openjdk11-jre \
         ttf-dejavu && \
@@ -26,5 +29,6 @@ RUN apk add --no-cache \
     wget -O /app/jenkins.war https://updates.jenkins-ci.org/latest/jenkins.war && \
     app-user && \
     app-chown
+COPY init/ /init/
 
 CMD ["su-exec", "app", "java", "-Djava.awt.headless=true", "-jar", "/app/jenkins.war", "--webroot=/var/cache/app"]
