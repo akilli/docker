@@ -1,5 +1,0 @@
-services:
-  go:
-    image: akilli/go
-    restart: unless-stopped
-    tty: true

@@ -13,18 +13,13 @@ jobs:
     outputs:
       base: ${{ steps.filter.outputs.base }}
       docker: ${{ steps.filter.outputs.docker }}
-      gitea: ${{ steps.filter.outputs.gitea }}
-      gitea-runner: ${{ steps.filter.outputs.gitea-runner }}
-      go: ${{ steps.filter.outputs.go }}
       gogs: ${{ steps.filter.outputs.gogs }}
       jenkins: ${{ steps.filter.outputs.jenkins }}
-      maildev: ${{ steps.filter.outputs.maildev }}
       mysql: ${{ steps.filter.outputs.mysql }}
       nginx: ${{ steps.filter.outputs.nginx }}
       node: ${{ steps.filter.outputs.node }}
       php: ${{ steps.filter.outputs.php }}
       postgres: ${{ steps.filter.outputs.postgres }}
-      redis: ${{ steps.filter.outputs.redis }}
       registry: ${{ steps.filter.outputs.registry }}
       traefik: ${{ steps.filter.outputs.traefik }}
     steps:
@@ -39,18 +34,10 @@ jobs:
               - 'base/**'
             docker:
               - 'docker/**'
-            gitea:
-              - 'gitea/**'
-            gitea-runner:
-              - 'gitea-runner/**'
-            go:
-              - 'go/**'
             gogs:
               - 'gogs/**'
             jenkins:
               - 'jenkins/**'
-            maildev:
-              - 'maildev/**'
             mysql:
               - 'mysql/**'
             nginx:
@@ -61,8 +48,6 @@ jobs:
               - 'php/**'
             postgres:
               - 'postgres/**'
-            redis:
-              - 'redis/**'
             registry:
               - 'registry/**'
             traefik:
@@ -83,30 +68,6 @@ jobs:
       image: akilli/docker
       context: "{{defaultContext}}:docker"
     secrets: inherit
-  gitea:
-    needs: [changes, base]
-    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.gitea == 'true')
-    uses: akilli/docker/.github/workflows/dockerhub.yml@master
-    with:
-      image: akilli/gitea
-      context: "{{defaultContext}}:gitea"
-    secrets: inherit
-  gitea-runner:
-    needs: [changes, docker]
-    if: (success() && needs.docker.if == 'true') || (always() && needs.changes.outputs.gitea-runner == 'true')
-    uses: akilli/docker/.github/workflows/dockerhub.yml@master
-    with:
-      image: akilli/gitea-runner
-      context: "{{defaultContext}}:gitea-runner"
-    secrets: inherit
-  go:
-    needs: [changes, base]
-    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.go == 'true')
-    uses: akilli/docker/.github/workflows/dockerhub.yml@master
-    with:
-      image: akilli/go
-      context: "{{defaultContext}}:go"
-    secrets: inherit
   gogs:
     needs: [changes, base]
     if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.gogs == 'true')
@@ -122,14 +83,6 @@ jobs:
     with:
       image: akilli/jenkins
       context: "{{defaultContext}}:jenkins"
-    secrets: inherit
-  maildev:
-    needs: [changes, node]
-    if: (success() && needs.changes.outputs.node == 'true') || (always() && needs.changes.outputs.maildev == 'true')
-    uses: akilli/docker/.github/workflows/dockerhub.yml@master
-    with:
-      image: akilli/maildev
-      context: "{{defaultContext}}:maildev"
     secrets: inherit
   mysql:
     needs: [ changes, base ]
@@ -170,14 +123,6 @@ jobs:
     with:
       image: akilli/postgres
       context: "{{defaultContext}}:postgres"
-    secrets: inherit
-  redis:
-    needs: [changes, base]
-    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.redis == 'true')
-    uses: akilli/docker/.github/workflows/dockerhub.yml@master
-    with:
-      image: akilli/redis
-      context: "{{defaultContext}}:redis"
     secrets: inherit
   registry:
     needs: [changes, base]

@@ -1,7 +1,0 @@
-services:
-  maildev:
-    image: akilli/maildev
-    restart: unless-stopped
-    ports:
-      - "25:1025"
-      - "80:1080"

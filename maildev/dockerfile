@@ -1,9 +1,0 @@
-FROM akilli/node
-LABEL maintainer="Ayhan Akilli"
-
-RUN npm install -g maildev && \
-    rm -rf /root/.npm && \
-    app-user && \
-    app-chown
-
-CMD ["su-exec", "app", "maildev"]
