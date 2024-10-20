@@ -18,4 +18,4 @@ COPY init/ /init/
 
 CMD ["su-exec", "app", "postgres"]
 
-HEALTHCHECK CMD pg_isready
+HEALTHCHECK CMD pg_isready || exit 1
