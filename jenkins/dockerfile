@@ -32,5 +32,3 @@ RUN apk add --no-cache \
 COPY init/ /init/
 
 CMD ["su-exec", "app", "java", "-Djava.awt.headless=true", "-jar", "/app/jenkins.war", "--webroot=/var/cache/app"]
-
-HEALTHCHECK CMD wget -O /dev/null -q http://localhost:8080/whoAmI/api/json?tree=authenticated || exit 1

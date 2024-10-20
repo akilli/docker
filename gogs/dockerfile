@@ -14,5 +14,3 @@ RUN apk add --no-cache gogs && \
 COPY app.ini /data/conf/app.ini
 
 CMD ["su-exec", "app", "gogs", "web"]
-
-HEALTHCHECK CMD wget -O /dev/null -q http://localhost/healthcheck || exit 1
