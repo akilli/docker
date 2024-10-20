@@ -4,6 +4,7 @@ LABEL maintainer="Ayhan Akilli"
 ENV DEV=0
 
 RUN apk add --no-cache \
+        fcgi \
         icu-data-full \
         php84 \
         php84-bz2 \
@@ -53,3 +54,5 @@ COPY etc/ /etc/php/
 COPY init/ /init/
 
 CMD ["php-fpm"]
+
+HEALTHCHECK CMD SCRIPT_NAME=/status SCRIPT_FILENAME=/status REQUEST_METHOD=GET cgi-fcgi -bind -connect 127.0.0.1:9000
