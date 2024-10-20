@@ -16,3 +16,5 @@ COPY etc/ /etc/nginx/
 COPY default.conf /app/nginx.conf
 
 CMD ["nginx"]
+
+HEALTHCHECK CMD wget -O /dev/null -q http://localhost/healthcheck || exit 1
