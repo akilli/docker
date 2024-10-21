@@ -7,3 +7,5 @@ RUN apk add --no-cache docker-registry && \
 COPY config.yml /etc/docker-registry/config.yml
 
 CMD ["su-exec", "app", "docker-registry", "serve", "/etc/docker-registry/config.yml"]
+
+HEALTHCHECK CMD wget -O /dev/null -q http://0.0.0.0:5000 || exit 1

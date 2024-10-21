@@ -15,3 +15,5 @@ COPY dynamic.yml /etc/traefik/dynamic.yml
 
 ENTRYPOINT ["traefik-entry"]
 CMD ["traefik"]
+
+HEALTHCHECK CMD traefik healthcheck --ping=true || exit 1

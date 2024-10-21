@@ -1,6 +1,7 @@
 services:
   traefik:
     image: akilli/traefik
+    command: --ping=true
     restart: unless-stopped
     ports:
       - "80:80"
