@@ -17,5 +17,3 @@ RUN apk add --no-cache \
 COPY init/ /init/
 
 CMD ["su-exec", "app", "postgres"]
-
-HEALTHCHECK CMD pg_isready || exit 1
