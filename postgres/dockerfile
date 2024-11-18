@@ -5,8 +5,8 @@ ENV PGDATA=/data
 ENV PGPASS=app
 
 RUN apk add --no-cache \
-        postgresql16 \
-        postgresql16-contrib && \
+        postgresql17 \
+        postgresql17-contrib && \
     rm -rf /var/lib/postgresql && \
     mkdir -p \
         /init/postgres \
