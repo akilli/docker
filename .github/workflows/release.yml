@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       base: ${{ steps.filter.outputs.base }}
-      gogs: ${{ steps.filter.outputs.gogs }}
       jenkins: ${{ steps.filter.outputs.jenkins }}
       nginx: ${{ steps.filter.outputs.nginx }}
       node: ${{ steps.filter.outputs.node }}
@@ -30,8 +29,6 @@ jobs:
           filters: |
             base:
               - 'base/**'
-            gogs:
-              - 'gogs/**'
             jenkins:
               - 'jenkins/**'
             nginx:
@@ -53,14 +50,6 @@ jobs:
     with:
       image: akilli/base
       context: "{{defaultContext}}:base"
-    secrets: inherit
-  gogs:
-    needs: [changes, base]
-    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.gogs == 'true')
-    uses: akilli/docker/.github/workflows/dockerhub.yml@master
-    with:
-      image: akilli/gogs
-      context: "{{defaultContext}}:gogs"
     secrets: inherit
   jenkins:
     needs: [changes, base]
