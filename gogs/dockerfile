@@ -16,6 +16,11 @@ ENV GOGS_CUSTOM=/data
 ENV GOGS_USER=app
 ENV GOGS_WORK_DIR=/app
 
+RUN apk add --no-cache \
+        git \
+        sqlite-libs && \
+    app-user && \
+    app-chown
 COPY --from=build /root/go/bin/gogs /usr/local/bin/gogs
 COPY app.ini /data/conf/app.ini
 
