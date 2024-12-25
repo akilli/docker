@@ -1,0 +1,22 @@
+#
+# Build image
+#
+FROM akilli/base AS build
+
+RUN apk add --no-cache go && \
+    go install gogs.io/gogs@latest
+
+#
+# Final image
+#
+FROM akilli/base
+LABEL maintainer="Ayhan Akilli"
+
+ENV GOGS_CUSTOM=/data
+ENV GOGS_USER=app
+ENV GOGS_WORK_DIR=/app
+
+COPY --from=build /root/go/bin/gogs /usr/local/bin/gogs
+COPY app.ini /data/conf/app.ini
+
+CMD ["su-exec", "app", "gogs", "web"]

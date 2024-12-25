@@ -1,0 +1,10 @@
+volumes:
+  data: {}
+services:
+  gogs:
+    image: akilli/gogs
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - data:/data
