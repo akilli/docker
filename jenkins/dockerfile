@@ -21,7 +21,7 @@ RUN apk add --no-cache \
         --strip-debug \
         --no-man-pages \
         --no-header-files \
-        --compress=2 \
+        --compress=zip-9 \
         --output /tmp/default-jvm && \
     rm -rf /usr/lib/jvm/* && \
     mv /tmp/default-jvm $JAVA_HOME && \
