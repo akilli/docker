@@ -3,6 +3,7 @@ LABEL maintainer="Ayhan Akilli"
 
 RUN apk add --no-cache \
         nginx \
+        nginx-mod-http-brotli \
         nginx-mod-http-geoip \
         nginx-mod-http-image-filter \
         openssl && \
