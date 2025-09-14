@@ -5,45 +5,43 @@ ENV DEV=0
 
 RUN apk add --no-cache \
         icu-data-full \
-        php84 \
-        php84-bz2 \
-        php84-ctype \
-        php84-curl \
-        php84-dom \
-        php84-fileinfo \
-        php84-fpm \
-        php84-ftp \
-        php84-gd \
-        php84-iconv \
-        php84-intl \
-        php84-json \
-        php84-ldap \
-        php84-mbstring \
-        php84-mysqlnd \
-        php84-opcache \
-        php84-openssl \
-        php84-pdo \
-        php84-pdo_mysql \
-        php84-pdo_pgsql \
-        php84-pdo_sqlite \
-        php84-pgsql \
-        php84-phar \
-        php84-posix \
-        php84-session \
-        php84-simplexml \
-        php84-soap \
-        php84-sockets \
-        php84-sodium \
-        php84-sqlite3 \
-        php84-tokenizer \
-        php84-xml \
-        php84-xmlreader \
-        php84-xmlwriter \
-        php84-xsl \
-        php84-zip && \
-    ln -s php84 /etc/php && \
-    (which php || ln -s php84 /usr/bin/php) && \
-    ln -s php-fpm84 /usr/sbin/php-fpm && \
+        php85 \
+        php85-bz2 \
+        php85-ctype \
+        php85-curl \
+        php85-dom \
+        php85-fileinfo \
+        php85-fpm \
+        php85-ftp \
+        php85-gd \
+        php85-iconv \
+        php85-intl \
+        php85-ldap \
+        php85-mbstring \
+        php85-mysqlnd \
+        php85-openssl \
+        php85-pdo \
+        php85-pdo_mysql \
+        php85-pdo_pgsql \
+        php85-pdo_sqlite \
+        php85-pgsql \
+        php85-phar \
+        php85-posix \
+        php85-session \
+        php85-simplexml \
+        php85-soap \
+        php85-sockets \
+        php85-sodium \
+        php85-sqlite3 \
+        php85-tokenizer \
+        php85-xml \
+        php85-xmlreader \
+        php85-xmlwriter \
+        php85-xsl \
+        php85-zip && \
+    ln -s php85 /etc/php && \
+    (which php || ln -s php85 /usr/bin/php) && \
+    ln -s php-fpm85 /usr/sbin/php-fpm && \
     rm -f \
         /etc/php/php-fpm.d/www.conf \
         /etc/php/php-fpm.conf && \
