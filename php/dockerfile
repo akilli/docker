@@ -6,10 +6,12 @@ ENV DEV=0
 RUN apk add --no-cache \
         icu-data-full \
         php85 \
+        php85-bcmath \
         php85-bz2 \
         php85-ctype \
         php85-curl \
         php85-dom \
+        php85-exif \
         php85-fileinfo \
         php85-fpm \
         php85-ftp \
