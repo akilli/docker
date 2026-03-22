@@ -23,7 +23,7 @@ jobs:
       traefik: ${{ steps.filter.outputs.traefik }}
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: detect changes
         uses: dorny/paths-filter@v3
         id: filter
