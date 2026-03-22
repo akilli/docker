@@ -20,6 +20,7 @@ RUN apk add --no-cache \
         php85-intl \
         php85-ldap \
         php85-mbstring \
+        php85-mysqli \
         php85-mysqlnd \
         php85-openssl \
         php85-pdo \
@@ -40,7 +41,8 @@ RUN apk add --no-cache \
         php85-xmlreader \
         php85-xmlwriter \
         php85-xsl \
-        php85-zip && \
+        php85-zip \
+        php85-pecl-imagick && \
     ln -s php85 /etc/php && \
     (which php || ln -s php85 /usr/bin/php) && \
     ln -s php-fpm85 /usr/sbin/php-fpm && \
