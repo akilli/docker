@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -eux
+
+if [ ! -f "/etc/redis.acl" ]; then
+    envsubst < /etc/redis.acl.tpl > /etc/redis.acl
+fi

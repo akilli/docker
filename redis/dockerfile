@@ -1,0 +1,15 @@
+FROM akilli/base
+LABEL maintainer="Ayhan Akilli"
+
+ENV REDIS_PASSWORD=app
+RUN apk add --no-cache \
+        envsubst \
+        redis && \
+    rm -rf /var/lib/redis && \
+    chown -R app:app /run/redis && \
+    app-user && \
+    app-chown
+COPY init/ /init/
+COPY etc/ /etc/
+
+CMD ["su-exec", "app", "redis-server", "/etc/redis.conf"]

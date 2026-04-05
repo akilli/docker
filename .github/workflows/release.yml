@@ -19,6 +19,7 @@ jobs:
       node: ${{ steps.filter.outputs.node }}
       php: ${{ steps.filter.outputs.php }}
       postgres: ${{ steps.filter.outputs.postgres }}
+      redis: ${{ steps.filter.outputs.redis }}
       registry: ${{ steps.filter.outputs.registry }}
       traefik: ${{ steps.filter.outputs.traefik }}
     steps:
@@ -45,6 +46,8 @@ jobs:
               - 'php/**'
             postgres:
               - 'postgres/**'
+            redis:
+              - 'redis/**'
             registry:
               - 'registry/**'
             traefik:
@@ -112,6 +115,14 @@ jobs:
     with:
       image: akilli/postgres
       context: "{{defaultContext}}:postgres"
+    secrets: inherit
+  redis:
+    needs: [ changes, base ]
+    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.redis == 'true')
+    uses: akilli/docker/.github/workflows/dockerhub.yml@master
+    with:
+      image: akilli/redis
+      context: "{{defaultContext}}:redis"
     secrets: inherit
   registry:
     needs: [changes, base]
