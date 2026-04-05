@@ -21,6 +21,7 @@ jobs:
       postgres: ${{ steps.filter.outputs.postgres }}
       redis: ${{ steps.filter.outputs.redis }}
       registry: ${{ steps.filter.outputs.registry }}
+      stalwart: ${{ steps.filter.outputs.stalwart }}
       traefik: ${{ steps.filter.outputs.traefik }}
     steps:
       - name: checkout
@@ -50,6 +51,8 @@ jobs:
               - 'redis/**'
             registry:
               - 'registry/**'
+            stalwart:
+              - 'stalwart/**'
             traefik:
               - 'traefik/**'
   base:
@@ -131,6 +134,14 @@ jobs:
     with:
       image: akilli/registry
       context: "{{defaultContext}}:registry"
+    secrets: inherit
+  stalwart:
+    needs: [ changes, base ]
+    if: (success() && needs.base.if == 'true') || (always() && needs.changes.outputs.stalwart == 'true')
+    uses: akilli/docker/.github/workflows/dockerhub.yml@master
+    with:
+      image: akilli/stalwart
+      context: "{{defaultContext}}:stalwart"
     secrets: inherit
   traefik:
     needs: [changes, base]

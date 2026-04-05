@@ -1,0 +1,17 @@
+volumes:
+  data: {}
+services:
+  stalwart:
+    image: akilli/stalwart
+    restart: unless-stopped
+    ports:
+      - "25:25"
+      - "443:443"
+      - "465:465"
+      - "993:993"
+#    environment:
+#      STALWART_HOST: mail.example.com
+    volumes:
+      - data:/data
+#      - /path/to/app.crt:/ssl/app.crt:ro
+#      - /path/to/app.key:/ssl/app.key:ro

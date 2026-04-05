@@ -1,0 +1,17 @@
+FROM akilli/base
+LABEL maintainer="Ayhan Akilli"
+
+ENV STALWART_HOST=mail.example.com
+ENV STALWART_PASSWORD=admin
+
+# @todo install regular `rocksdb` package once `stalwart-mail` dependencies are updated
+RUN echo "@old https://dl-cdn.alpinelinux.org/alpine/v3.23/community" >> /etc/apk/repositories && \
+    apk add --no-cache \
+        rocksdb@old \
+        stalwart-cli \
+        stalwart-mail && \
+    app-user && \
+    app-chown
+COPY config.toml /app/config.toml
+
+CMD ["su-exec", "app", "stalwart", "--config", "/app/config.toml"]
