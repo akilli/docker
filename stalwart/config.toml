@@ -1,33 +1,49 @@
-storage.data = "rocksdb"
-storage.fts = "rocksdb"
-storage.blob = "rocksdb"
-storage.lookup = "rocksdb"
-storage.directory = "internal"
+config.local-keys = [
+    "authentication.fallback-admin.*",
+    "certificate.*",
+    "cluster.*",
+    "config.local-keys.*",
+    "directory.*",
+    "http.*",
+    "!server.blocked-ip.*",
+    "!server.allowed-ip.*",
+    "server.*",
+    "storage.*",
+    "store.*",
+    "tracer.*"
+]
 
-store.rocksdb.type = "rocksdb"
-store.rocksdb.path = "/data"
-store.rocksdb.compression = "lz4"
-
-directory.internal.type = "internal"
-directory.internal.store = "rocksdb"
-
-authentication.fallback-admin.user = "admin"
-authentication.fallback-admin.secret = "%{env:STALWART_PASSWORD}%"
-
-tracer.stdout.enable = true
-tracer.stdout.type = "stdout"
-tracer.stdout.level = "info"
-tracer.stdout.ansi = false
+server.hostname = "%{env:STALWART_HOST}%"
+http.hsts = true
+http.permissive-cors = false
+http.use-x-forwarded = true
 
 certificate.default.default = true
 certificate.default.cert = "%{file:/ssl/app.crt}%"
 certificate.default.private-key = "%{file:/ssl/app.key}%"
 
-server.hostname = "%{env:STALWART_HOST}%"
-http.hsts = true
-http.permissive-cors = false
-http.url = "protocol + '://' + config_get('server.hostname') + ':' + local_port"
-http.use-x-forwarded = true
+authentication.fallback-admin.user = "admin"
+authentication.fallback-admin.secret = "%{env:STALWART_PASSWORD}%"
+
+storage.data = "rocksdb"
+storage.fts = "rocksdb"
+storage.blob = "rocksdb"
+storage.lookup = "rocksdb"
+storage.directory = "internal"
+storage.search-index.default-language = "de"
+
+store.rocksdb.type = "rocksdb"
+store.rocksdb.path = "/data"
+store.rocksdb.compression = "lz4"
+store.rocksdb.purge.frequency = "0 3 *"
+
+directory.internal.type = "internal"
+directory.internal.store = "rocksdb"
+
+tracer.console.enable = true
+tracer.console.type = "console"
+tracer.console.level = "info"
+tracer.console.ansi = false
 
 server.listener.http.bind = "[::]:8080"
 server.listener.http.protocol = "http"
@@ -46,3 +62,8 @@ server.listener.smtp.protocol = "smtp"
 server.listener.submissions.bind = "[::]:465"
 server.listener.submissions.protocol = "smtp"
 server.listener.submissions.tls.implicit = true
+
+server.auto-ban.auth.rate = "100/1d"
+server.auto-ban.abuse.rate = "35/1d"
+server.auto-ban.loiter.rate = "150/1d"
+server.auto-ban.scan.rate = "150/1d"

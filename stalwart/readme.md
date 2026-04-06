@@ -7,7 +7,7 @@ The default config
 - expects the TLS certificate file at `/ssl/app.crt`
 - expects the TLS private key file at `/ssl/app.key`
 - uses `STALWART_HOST` environment variable to set server hostname
-- uses `STALWART_PASSWORD` environment variable to set `admin` user password
+- uses `STALWART_PASSWORD` environment variable to set `admin` user password (see stalwart docs for hashing schemes)
 
 Alternatively, you can mount your own config to `/app/config.toml`.
 
