@@ -7,8 +7,9 @@ RUN apk add --no-cache \
         mysql \
         mysql-client && \
     rm -rf \
-      /run/mysqld \
-      /var/lib/mysql && \
+        /etc/mysql \
+        /run/mysqld \
+        /var/lib/mysql && \
     mkdir -p \
         /init/mysql \
         /run/mysql && \
