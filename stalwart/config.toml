@@ -67,3 +67,34 @@ server.auto-ban.auth.rate = "100/1d"
 server.auto-ban.abuse.rate = "35/1d"
 server.auto-ban.loiter.rate = "150/1d"
 server.auto-ban.scan.rate = "150/1d"
+
+session.extensions.pipelining = true
+session.extensions.chunking = true
+session.extensions.requiretls = true
+session.extensions.no-soliciting = ""
+session.extensions.dsn = [ { if = "!is_empty(authenticated_as)", then = true}, { else = false } ]
+session.extensions.future-release = [ { if = "!is_empty(authenticated_as)", then = true}, { else = false } ]
+session.extensions.deliver-by = [ { if = "!is_empty(authenticated_as)", then = true}, { else = false } ]
+session.extensions.mt-priority = [ { if = "!is_empty(authenticated_as)", then = true}, { else = false } ]
+session.extensions.vrfy = false
+session.extensions.expn = false
+
+session.ehlo.require = true
+session.ehlo.reject-non-fqdn = true
+
+session.data.spam-filter = true
+
+session.auth.require = true
+session.auth.must-match-sender = true
+
+spam-filter.header.status.enable = true
+spam-filter.header.status.name = "X-Spam-Status"
+
+spam-filter.header.result.enable = true
+spam-filter.header.result.name = "X-Spam-Result"
+
+spam-filter.score.spam = "5.0"
+spam-filter.score.discard = "0.0"
+spam-filter.score.reject = "0.0"
+
+spam-filter.auto-update = true
