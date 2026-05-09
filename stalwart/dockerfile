@@ -4,10 +4,8 @@ LABEL maintainer="Ayhan Akilli"
 ENV STALWART_HOST=mail.example.com
 ENV STALWART_PASSWORD=admin
 
-# @todo install regular `rocksdb` package once `stalwart-mail` dependencies are updated
-RUN echo "@old https://dl-cdn.alpinelinux.org/alpine/v3.23/community" >> /etc/apk/repositories && \
-    apk add --no-cache \
-        rocksdb@old \
+RUN apk add --no-cache \
+        rocksdb \
         stalwart-cli \
         stalwart-mail && \
     app-user && \
