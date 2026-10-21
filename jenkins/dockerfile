@@ -15,7 +15,7 @@ RUN apk add --no-cache \
         ttf-dejavu && \
     apk add --no-cache --virtual .build \
         binutils \
-        openjdk23-jdk && \
+        openjdk25-jdk && \
     jlink \
         --add-modules ALL-MODULE-PATH \
         --strip-debug \
