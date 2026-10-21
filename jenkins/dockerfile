@@ -11,11 +11,11 @@ RUN apk add --no-cache \
         docker-cli-buildx \
         docker-cli-compose \
         git \
-        openjdk21-jre \
+        openjdk25-jre \
         ttf-dejavu && \
     apk add --no-cache --virtual .build \
         binutils \
-        openjdk21-jdk && \
+        openjdk25-jdk && \
     jlink \
         --add-modules ALL-MODULE-PATH \
         --strip-debug \
